@@ -1,0 +1,55 @@
+<!--pages/goodsInfo/goodsInfo.wxml-->
+<view class="content">
+    <view class="infoBox">
+        <view class="type">古筝谱<text> | 发布时间: 2017-10-30</text></view>
+        <view class="name">{{infoData.skuName}}</view>
+        <view class="info">这是副标题这是副标题</view>
+        <view class="flex-center-Y justify-between">
+            <view class="flex-center-Y justify-between" style="width:100%">
+                <view class="label">
+                    <text wx:if="{{infoData.goodsLabel1}}">{{infoData.goodsLabel1}}</text>
+
+                    <text wx:if="{{infoData.goodsLabel2}}">{{infoData.goodsLabel2}}</text>
+
+                    <text wx:if="{{infoData.goodsLabel3}}">{{infoData.goodsLabel3}}</text>
+                </view>
+            </view>
+        </view>
+    </view>
+</view>
+<view class="blank"></view>
+<!-- 音频 -->
+<view wx:if="{{audiolist.length > 0 }}">
+  <view class='audio'>
+    <view class='audio_btn' catchtap='playAudio'>
+      <image src='../../images/homeIndex/start.png' class='image-full' wx:if="{{!isPlayAudio}}"></image>
+      <!-- 未播放-->
+      <image src='../../images/homeIndex/stop.png' class='image-full' wx:else></image>
+      <!-- 播放中-->
+    </view>
+    <view class='audio_pro'>
+      <slider class="drag" step="10" value="{{audioTime}}" bindchange="sliderChange" backgroundColor="#efefef" activeColor="#90BED5" />
+    </view>
+    <text class='audio_text'>{{showTime1}}/{{showTime2}}</text>
+  </view>
+</view>
+<!-- 音频 -->
+<!-- 曲谱图片 -->
+<view class="goodsInfo" style="display: flex; flex-direction: column;">
+    <image wx:for="{{skuLongPictureList}}" wx:key="index" src="{{item.pictureUrl}}" mode="widthFix"></image>
+</view>
+<view class="fix-bottom flex-center-Y justify-center">
+    <view wx:if="{{hasUserInfo==false}}" bindtap="getUserProfile" class="flex-center-Y">
+            <image style="width:40rpx;height:40rpx" src="../../images/shop/downLoad.png"></image>
+            <button class="btn-l">下载</button>
+    </view>
+    <view wx:else class="flex-center-Y">
+            <image style="width:40rpx;height:40rpx" class="img" src="../../images/shop/downLoad.png"></image>
+            <button class="btn-l" bindtap="join">下载</button>
+    </view>
+</view>
+
+<view wx:if="{{showTop}}" class="toTop" bindtap="toTop">
+    <image class="img" src="../../images/shop/toTop.png"></image>
+</view>
+<login-model showModal="{{showModal}}" bindcloseModel="closeLoginModel" bindreflashData="reflashData"></login-model>

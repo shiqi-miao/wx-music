@@ -1,0 +1,72 @@
+/* component/loginModel/index.wxss */
+/* component/model/model.wxss */
+image{width:100%;height:100%}
+.btn,.btn1{text-align:center;width:220rpx;height: 88rpx;background:#2D879C;line-height: 88rpx;font-size: 28rpx;border-radius: 24rpx;color: #ffffff;text-align: center;}
+.btn1{margin-right:74rpx;border:2rpx solid #333333;color: #333333;background: #fff;}
+textarea{height: 160rpx;padding-top: 28rpx}
+.modal-mask {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.5);
+    opacity: 0.5;
+    overflow: hidden;
+    z-index: 9000;
+    color: #fff;
+}
+.modal-dialog .title{
+  font-size: 24rpx;
+  color: rgba(51, 51, 51, 1);
+  margin-bottom: 60rpx
+}
+.modal-dialog .line{
+  font-size: 24rpx;
+  color: #333333;
+  margin-bottom: 30rpx;
+  justify-content: space-between;
+}
+.modal-dialog .line image{
+    width:36rpx;
+    height: 36rpx;
+  }
+.modal-dialog {
+    position:relative;
+    width: 690rpx;
+    height: 688rpx;
+    overflow: hidden;
+    position: fixed;
+    bottom: 200rpx;
+    transform: translatex(-50%);
+    left: 50%;
+    z-index: 9999;
+    background: #fff;
+    /* border-top-left-radius: 36rpx;
+    border-top-right-radius: 36rpx; */
+    border-radius: 36rpx;
+    padding: 40rpx
+}
+
+.modal-title {
+    font-size: 28rpx;
+    color: rgba(51, 51, 51, 1);
+    font-weight: bold;
+    margin-bottom: 34rpx;
+
+}
+.modal-footer {
+    display: flex;
+    flex-direction: row;
+    height: 86rpx;
+    font-size: 34rpx;
+    line-height: 86rpx;
+    justify-content: center;
+    padding: 10rpx 0;
+}
+.flex-center-Y {
+    display: flex;
+    display: -webkit-flex;
+    align-items: center;
+    -webkit-align-items: center;
+}

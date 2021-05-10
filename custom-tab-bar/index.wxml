@@ -1,0 +1,8 @@
+<!--miniprogram/custom-tab-bar/index.wxml-->
+<view class="tab-bar">
+  <view wx:for="{{list}}" wx:key="index" class="{{index=='2'?'tab-bar-item tab-bar-item1':'tab-bar-item'}}" data-path="{{item.pagePath}}" data-index="{{index}}" bindtap="switchTab">
+    <image class="{{index=='2'?'big-img':''}}" src="{{selected === index ? item.selectedIconPath : item.iconPath}}"></image>
+    <view style="color: {{selected === index ? selectedColor : color}}">{{item.text}}</view>
+    <view class="num" wx:if="{{index=='3' && cartCount>0}}">{{cartCount}}</view>
+  </view>
+</view>

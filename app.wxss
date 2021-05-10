@@ -1,0 +1,83 @@
+/* *app.wxss* */
+.mH-100{min-height: 100vh;}
+button{background: transparent;padding: 0;}
+.padding-btn{padding-bottom:80rpx!important}
+view{box-sizing: border-box;}
+button::after {border:0}
+.container {
+  padding:30rpx 30rpx;
+} 
+.bg-grey{background: #F9F9F9;}
+.border-50{border-radius: 50%}
+.content{margin-bottom: 40rpx}
+.flex-center-Y {
+    display: flex;
+    display: -webkit-flex;
+    align-items: center;
+    -webkit-align-items: center;
+}
+.flex-center-E {
+    display: flex;
+    display: -webkit-flex;
+    align-items: flex-end;
+    -webkit-align-items: flex-end;
+}
+.flex-center-S {
+  display: flex;
+  display: -webkit-flex;
+  align-items: flex-start;
+  -webkit-align-items: flex-start;
+}
+.limit-ellipsis{
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  -webkit-text-overflow: ellipsis;
+}
+.limit-ellipsis-2{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display:-webkit-box;
+  -webkit-box-orient:vertical;
+  -webkit-line-clamp:2;
+}
+.justify-between{justify-content: space-between}
+.justify-center {
+    justify-content: center;
+}
+.fl{float:left}
+.fr{float:right}
+.hoderColor{color: rgba(153, 153, 153, 1);}
+.fix-bottom{z-index:999;position: fixed;bottom: 0;left:0;width: 100%;height: 120rpx;background: #fff;padding: 0 30rpx;font-size: 28rpx;line-height: 120rpx;color: #333;box-shadow: 0 0 12rpx 0 rgba(0, 0, 0, 0.1)}
+.fix-bottom-1{background: transparent;bottom: 80rpx;box-shadow: 0 0 0 0}
+.fix-bottom .btn{width: 220rpx;height: 88rpx;background: #2D879C;color: #ffffff;text-align: center;line-height: 88rpx;font-size: 28rpx;border-radius: 24rpx;margin: 0;}
+.fix-bottom .btn1{width: 220rpx;height: 88rpx;color: #2D879C;background:#fff;text-align: center;line-height: 88rpx;font-size: 28rpx;border-radius: 24rpx;margin: 0;border:2rpx solid #2D879C}
+.fix-bottom text{font-size: 32rpx;line-height: 120rpx;color: #333333;}
+/* .coffee1{width:21.18vh;height:21.18vh;position: absolute;left: 8.7vh;top:168rpx}
+.coffee2{width:21.18vh;height:21.18vh;position: absolute;left: 40rpx;top:368rpx}
+.coffee3{width:21.18vh;height:21.18vh;position: absolute;left: 8.7vh;top:568rpx}
+.coffee4{width:21.18vh;height:21.18vh;position: absolute;left: 312rpx;top:240rpx}
+.coffee5{width:21.18vh;height:21.18vh;position: absolute;left: 240rpx;top:440rpx}
+.coffee6{width:21.18vh;height:21.18vh;position: absolute;left: 312rpx;top:640rpx}
+.coffee7{width:21.18vh;height:21.18vh;position: absolute;left: 240rpx;top:840rpx}
+.coffee8{width:18.53vh;height:21.18vh;position: absolute;left: 512rpx;top:40rpx}
+.coffee9{width:18.53vh;height:21.18vh;position: absolute;left: 512rpx;top:240rpx}
+.coffee10{width:21.18vh;height:21.18vh;position: absolute;right: 38rpx;top:440rpx}
+.coffee1 .like{width:40rpx;height:34rpx;position: absolute;left: 14rpx;top:86rpx}
+.coffee2 .like{width:40rpx;height:34rpx;position: absolute;left: 86rpx;top:86rpx}
+.coffee3 .like{width:40rpx;height:34rpx;position: absolute;left: 14rpx;top:86rpx}
+.coffee4 .like{width:40rpx;height:34rpx;position: absolute;left: 14rpx;top:14rpx} 
+.coffee5 .like{width:40rpx;height:34rpx;position: absolute;left: 86rpx;top:14rpx}
+.coffee6 .like{width:40rpx;height:34rpx;position: absolute;left: 14rpx;top:14rpx}
+.coffee7 .like{width:40rpx;height:34rpx;position: absolute;left: 86rpx;top:14rpx}
+.coffee8 .like{width:40rpx;height:34rpx;position: absolute;left: 14rpx;top:14rpx}
+.coffee9 .like{width:40rpx;height:34rpx;position: absolute;left: 14rpx;top:14rpx}
+.coffee10 .like{width:40rpx;height:34rpx;position: absolute;left: 86rpx;top:14rpx}
+.other{width:310rpx;height:872rpx;position: absolute;left: 440rpx;bottom:174rpx}
+.info{width: 500rpx;height: 600rpx;position: absolute;left: 162rpx;top: 224rpx;border-radius: 20rpx;background: #fff;z-index: 10}
+.info .top{width: 500rpx;height: 320rpx}
+.info .bottom{padding-top:30rpx;padding-left: 30rpx;position: relative}
+.info .bottom .title{font-size: 28rpx;color: rgba(51, 51, 51, 1);line-height: 32rpx}
+.info .bottom .rate{margin-top: 20rpx;margin-bottom: 1rpx}
+.info .bottom .type{font-size: 24rpx;color: rgba(153, 153, 153, 1);line-height: 40rpx}
+.info .bottom .score{font-size: 48rpx;line-height: 58rpx;color: #2D879C;font-weight: 600;right: 24rpx;top: 24rpx;position: absolute} */

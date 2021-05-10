@@ -1,0 +1,20 @@
+<button class="modal-mask" bindtap="getUserProfile" wx:if="{{showModal && !isFoot}}"></button>
+<view class="modal-mask1" bindtap="hideModal" catchtouchmove="preventTouchMove" wx:if="{{showModal && isFoot}}"></view>  
+<view class="modal-dialog" wx:if="{{showModal && isFoot}}">
+  <view class="close" bindtap="cancel">
+    <image src="../../images/homeIndex/close.png"></image>
+  </view>
+  <view class="bgm">
+    <image src="../../images/homeIndex/login.png"></image>
+  </view>
+  <view class="img">
+   <image style="width:84rpx;height:84rpx;position:relative" src="../../images/homeIndex/kupper.png"/>
+  </view>
+  <view class="modal-title"> 
+    欢迎登录光芽咖啡~
+  </view>
+  <button bindtap="getUserProfile" class="btn flex-center-Y">
+    <image src="../../images/homeIndex/wechat.png"></image>
+    微信授权
+  </button>
+</view>

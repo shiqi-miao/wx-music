@@ -1,0 +1,10 @@
+{
+  "navigationBarTitleText": " ",
+  "navigationBarBackgroundColor":"#432415",
+  "navigationBarTextStyle":"white",
+  "navigationStyle":"custom",
+  "usingComponents": {
+    "login-model": "/component/loginModel/index",
+    "role-model": "/component/roleModel/index"
+  }
+}

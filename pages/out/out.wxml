@@ -1,0 +1,5 @@
+<!--pages/out/out.wxml-->
+<!-- 不加block可能出现白屏问题 -->
+<block>
+    <web-view src="{{url}}"></web-view>
+</block>

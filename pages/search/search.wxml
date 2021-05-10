@@ -1,0 +1,33 @@
+<!--pages/search/search.wxml-->
+<!--搜索框-->
+<view class="search">
+  <view class="search-l">
+    <input placeholder="搜索歌曲名称" class="search-int" value="{{inputValue}}" bindinput="changeSearch"></input>
+    <image class="search-img1" src="../../images/homeIndex/search.png" bindtap="getSearch"></image>
+    <image class="search-img2" src="../../images/homeIndex/clear.png" catchtap="clear"></image>
+    <view class="search-int1" catchtap="clear"></view>
+  </view>
+  <view class="search-r" bindtap="back">取消</view>
+</view>
+<!--热门推荐-->
+<view class="hot">
+  <view class="hot-title">
+    <view class="hot-model"></view>
+    <view class="hot-content">热门分类</view>
+  </view>
+  <view class="hot-list">
+    <view wx:for="{{typeList}}" wx:key="*this" class="hot-item" data-name="{{item.searchName}}" bindtap="choose">{{item.searchName}}</view>
+  </view>
+</view>
+<view class="container article" style="margin-top:20rpx">
+    <view wx:for="{{articleList}}" wx:key="index" class="article content" bindtap="toArticle" data-id="{{item.articleId}}" 
+    data-url="{{item.articleLink}}"><!--wx:for文章列表-->
+      <view class="top">
+        <image src="{{item.articlePicture}}"/>
+      </view>
+      <view class="bottom">
+        <view class="title">{{item.articleTheme}}</view>
+        <view class="detail">{{item.articleName}}</view>
+      </view>
+    </view>
+</view>

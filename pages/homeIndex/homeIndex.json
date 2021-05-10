@@ -1,0 +1,11 @@
+{
+  "navigationBarTitleText": "光芽COFFEE",
+  "navigationBarBackgroundColor":"#432415",
+  "navigationBarTextStyle":"white",
+  "navigationStyle":"custom",
+  "usingComponents": {
+    "login-model": "/component/loginModel/index",
+    "ad-model": "/component/adModel/index",
+    "light-model": "/component/lightModel/index"
+  }
+}

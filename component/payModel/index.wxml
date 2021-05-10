@@ -1,0 +1,11 @@
+<view class="modal-mask" bindtap="hideModal" catchtouchmove="preventTouchMove" wx:if="{{showModal}}"></view>
+  
+<view class="modal-dialog" wx:if="{{showModal}}">
+  <view>  
+    支付失败,是否重新发起支付?
+  </view>
+  <form> 
+      <button class="btn" bindtap="confirm">重新支付</button>
+      <button class="btn1" bindtap="cancel">取消订单</button>
+  </form>  
+</view>

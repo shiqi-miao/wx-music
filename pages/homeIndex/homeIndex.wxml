@@ -1,0 +1,147 @@
+<view class="page" style="background-image:url({{homeindexData.homeIndex}})">
+    <!-- <view slot="refresher" class="refresh-container"
+    style="{{!isShow?'display: block; width: 100%; height: 80px; background: #666666; display: flex; align-items: center;':'display:none'}}"
+  >
+    <view class="view1">
+      展示广告
+    </view>
+    <view bindtap="goHome">回到首页</view>
+</view> -->
+    <!-- <scroll-view
+  class="{{isHide?'scrollClass-bottom':'scrollClass'}}"
+  scroll-y style="{{isShow?'width: 100%; min-height: 200px':'display:none'}}"
+  refresher-enabled="{{true}}"
+  refresher-triggered="{{triggered}}"
+  refresher-threshold="{{100}}"
+  refresher-default-style="white"
+  refresher-background="grey"
+  bindrefresherpulling="onPulling"
+  bindrefresherrefresh="onRefresh"
+  bindrefresherrestore="onRestore"
+  bindrefresherabort="onAbort"
+> -->
+    <!-- <button wx:if="{{hasUserInfo==false}}" class="cart" bindtap="getUserProfile">
+	<image src="../../images/shop/cart.png"></image>
+	<view class="num">{{cartCount}}</view>
+</button>
+<view wx:else class="cart" bindtap="toCart">
+	<image src="../../images/shop/cart.png"></image>
+	<view class="num">{{cartCount}}</view>
+</view> -->
+    <button wx:if="{{hasUserInfo==false}}" bindtap="getUserProfile" class="top-bg"></button>
+    <view wx:else class="top-bg" bindtap="toFoot">
+    </view>
+    <view class="shop container">
+        <view class="coupon flex-center-Y justify-between" bindtap="toVip">
+            <view class="flex-center-Y">
+                <view class="photo">
+                    <image src="../../images/my/noLogin.png"></image>
+                </view>
+                <text class="name">陈比方</text>
+            </view>
+            <view class="couponBtn">会员中心</view>
+        </view>
+        <view class="left" bindtap="toShop">
+            <image src="../../images/shop/shop.png"></image>
+        </view>
+        <view class="right">
+            <view class="topBox" bindtap="topackage">
+                <image src="../../images/shop/package.png"></image>
+            </view>
+            <view class="bottomBox" bindtap="toMachine">
+                <image src="../../images/shop/machine.png"></image>
+            </view>
+        </view>
+    </view>
+    <!-- <view class="recommend">
+        <view class="top flex-center-Y justify-between">
+            咖啡商城
+            <view class="flex-center-Y" style="font-size:24rpx" bindtap="toShop">
+                更多
+                <van-icon name="arrow" style="margin-left:8rpx" />
+            </view>
+        </view>
+        <view class="bottom flex-center-Y">
+            <view wx:for="{{recommendList}}" wx:key="index" class="article content mr p-0" style="width:150rpx;margin:0;margin-right:16rpx" bindtap="toDetail" data-skucode="{{item.skuCode}}">
+                <view class="top p-0" style="width:150rpx;height:150rpx;margin-bottom:8rpx">
+                    <image src="{{item.skuPicture}}" />
+                </view>
+                <view class="bottom p-0" style="height:116rpx">
+                    <button class="cart" style="width:40rpx!important;height:40rpx!important;" wx:if="{{hasUserInfo==false}}" catchtap="getUserProfile" style="background:transparent">
+					<image style="width:40rpx!important;height:40rpx!important;position:absolute;top:69%;left:50%;transform:translate(-50%,-50%)" src="../../images/shop/cart-1.png"></image>
+				</button>
+                    <view class="cart" wx:else style="width:40rpx;height:40rpx;">
+                        <image style="width:40rpx;height:40rpx" wx:if="{{item.skuNum>0}}" src="../../images/shop/cart-2.png" data-skucode="{{item.skuCode}}" catchtap="putCart"></image>
+                        <image style="width:40rpx;height:40rpx" wx:else src="../../images/shop/cart-1.png" data-skucode="{{item.skuCode}}" catchtap="putCart"></image>
+                        <view class="num" style="top:-10rpx;right:-10rpx" wx:if="{{item.skuNum>0}}">{{item.skuNum}}</view>
+                    </view>
+                    <view class="title">{{item.skuName}}</view>
+                    <view class="detail flex-center-Y" style="margin-top:0;margin-bottom:4rpx">￥{{item.discountPrice}}</view>
+                    <view class="detail" style="margin:0">
+                        <view class="sale">￥{{item.salePrice}}</view>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view> -->
+    <!-- <view class="advBox" wx:if="{{advList.length>0}}">
+        <scroll-view scroll-x="true" style="width: 100%;white-space: nowrap;">
+            <view class="advImg" wx:for="{{advList}}" data-jumpurl="{{item.jumpUrl}}" data-urltype="{{item.urlType}}" wx:key="index" bindtap="toLink">
+                <image style="border-radius:24rpx" src="{{item.pictureUrl}}"></image>
+            </view>
+        </scroll-view>
+    </view> -->
+    <view class="swiper">
+        <swiper autoplay="true" interval="5000" duration="500" circular="true" indicator-color="rgba(255, 255, 255, 0.5)" indicator-active-color="#fff" bindchange="swiperChange">
+            <block wx:for="{{imgUrls}}" wx:key="index">
+                <swiper-item bindtap="toLink" data-jumpurl="{{item.jumpUrl}}" data-urltype="{{item.urlType}}">
+                    <image class="img" style="width:750rpx;" src="{{item.wheelPicture}}" />
+                </swiper-item>
+            </block>
+        </swiper>
+        <!-- 自定义小圆点样式 -->
+        <view class="dots">
+            <block wx:for="{{imgUrls}}" wx:key="index">
+                <view class="dot{{index == currentSwiper ? ' active' : ''}}"></view>
+            </block>
+        </view>
+        <!-- 自定义小圆点样式 -->
+    </view>
+    <view class="flex-center-Y" style="padding-top:30rpx;background-color: rgba(249, 249, 249, 1);">
+        <view class="goods">
+            <view class="img" bindtap="toSearch">
+                <image bindtap="toShop" src="../../images/homeIndex/search.png" />
+            </view>
+            <scroll-view scroll-x="true" class="tab-h" scroll-left="{{scrollLeft}}">
+                <view wx:for="{{typeList}}" wx:for-item='list' wx:key="index" class="tab-item {{currentTab==index?'active':''}}" data-current="{{index}}" bindtap="swichNav">{{list.typeName}}</view>
+            </scroll-view>
+            <!-- ljy 修改 min-height:100vh - -> min-height:640rpx // min-height:1200rpx -->
+            <swiper class="tab-content" current="{{currentTab}}" duration="300" bindchange="switchTab" style="transform: translateY(-70rpx)!important;min-height:{{minh*600}}rpx">
+                <swiper-item wx:for="{{typeList}}" wx:for-item='list' wx:key="index" wx:if="{{list.typeName}}">
+                    <scroll-view scroll-y="true" class="scoll-h">
+                        <view class="container">
+                            <view wx:for="{{goodsList}}" wx:key="index" class="article content" bindtap="toDetail" data-skucode="{{item.skuCode}}">
+                                <view class="bottom">
+                                    <button class="cart" wx:if="{{hasUserInfo==false}}" catchtap="getUserProfile" style="background:transparent">
+												<image style="width:40rpx;position:absolute;top:0;left:0;" src="../../images/homeIndex/start.png"></image>
+											</button>
+                                    <view class="cart" wx:else>
+                                        <image wx:if="{{item.skuNum>0}}" src="../../images/homeIndex/stop.png" data-skucode="{{item.skuCode}}" catchtap="putCart"></image>
+                                        <image wx:else src="../../images/homeIndex/stop.png" data-skucode="{{item.skuCode}}" catchtap="putCart"></image>
+                                    </view>
+                                    <view class="title">风吹麦浪</view>
+                                    <view class="detail flex-center-Y justify-between">这是副标题这是副标题<span>上传时间: 2019-5-6</span></view>
+                                    <!-- <view class="date">上传时间: 2019-5-6</view> -->
+                                </view>
+                            </view>
+                        </view>
+                    </scroll-view>
+                </swiper-item>
+            </swiper>
+        </view>
+    </view>
+</view>
+<!-- </scroll-view> -->
+<login-model showModal="{{showModal}}" bindcloseModel="closeLoginModel" bindreflashData="reflashData"></login-model>
+<!-- <ad-model showModal="{{showAdModal}}"></ad-model> -->
+<light-model showModal="{{showLightModal}}" hasUserInfo="{{hasUserInfo}}" lightData="{{lightData}}" allData="{{allData}}" couponList="{{couponList}}" bindcancelScanInfo="cancelScanInfo" bindshowLogin="showLogin"></light-model>

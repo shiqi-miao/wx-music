@@ -1,0 +1,28 @@
+<!--pages/exception/exception.wxml-->
+<view class="modal-mask1" bindtap="hideModal" catchtouchmove="preventTouchMove" wx:if="{{showModalE}}"></view>
+<view class="contianer modal-dialog1" wx:if="{{showModalE}}">
+    <view class="title">免责声明条款</view>
+    <view class="text">　　在接受本平台的咖啡师服务之前，请务必仔细阅读本条款并同意本声明。光芽咖啡师服务旨在提供给消费者优质的咖啡体验，并由第三方组织提供具体服务人员，您在接受本平台咖啡师服务的行为，将被视作是对本声明全部内容的无异议认可；如有异议，请立即停止使用本平台的此项服务。</view>
+    <view class="text">　　本平台经营者对本平台中所示的任何商标、文字图案、标志拥有所有权，未经本平台的书面批准，任何人不得使用。本平台所刊登的资料受版权保护，未经本平台书面同意，该资料任何部分均不得修改、复制、储存于检索系统、传送、抄袭、分发，或用于任何商业或公开用途。</view>
+    <view class="text">　　本平台为您提供专业的服务，您仅需支付由平台规上显示的金额费用，任何因现场服务人员销售、沟通、延时所产生的线下额外费用，本平台将不承担由此类线下费用产生的任何责任。</view>
+    <view class="text">　任何在本平台出现的信息均只作为参考，您须对任何自主决定的行为负责。</view>
+    <view class="text">　本平台提供的咖啡师服务人员，由第三方组织提供具体服务人员，由该人员提供的咖啡、食品、资料信息、培训内容等均与本平台没有关系，本平台将不承担由此产生的任何责任。</view>
+    <view class="text">　对于任何因使用或信赖从本平台或资源上获取的内容、服务或其他材料而造成（或声称造成）的任何直接或间接损失，本平台均不承担任何责任。</view>
+    <view class="text">　本平台经营者不为在本平台使用的任何第三方软件的准确性、安全性、有效性等作任何声明或保证。</view>
+    <view class="text">　本平台某些部分可能包括的单独条款和条件，是作为对本声明的补充。如果有任何冲突，该等附加条款和条件将对相关部分或网页适用。</view>
+    <view class="text">　互联网传输可能会受到干扰，中断、延迟或数据错误，本平台经营者对于非本公司能控制的通讯设施故障可能引致的数据及交易之准确性或及时性不负任何责任。</view>
+    <view class="text">　本平台经营者并不就以下事项作出声明或保证：使用本平台不会中断；不会出现延误、故障、错误、遗漏或丢失传送的资料；不会传播病毒或其他污染或毁灭性的产物；不会损害您的电脑系统。</view>
+    <view class="text">　当政府部门、司法机关等依照法定程序要求本平台披露有关资料和信息时，本平台不得已将根据执法单位之要求或为公共安全之目的提供资料和信息。在此情况下之任何披露，本平台均可免责。</view>
+    <view class="text">　平台内容的解释权均归本平台所有。平台内容不排除进行不定期更新，本平台保留对平台包含的信息和资料及其显示的条款、条件和说明进行变更的权利。</view>
+    <view class="text">　此致</view>
+    <view class="text">　敬礼</view>
+    <view class="text tr">2020年11月5日</view>
+    <view class="parent" bindtap="change">
+         <image class="img" wx:if="{{isAgree}}" src="../../images/shop/select.png"/>
+         <image class="img" wx:else src="../../images/shop/select-1.png"/>
+         我已阅读并同意上述内容
+    </view>
+      
+</view>
+  
+  
