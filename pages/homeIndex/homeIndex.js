@@ -11,138 +11,36 @@ Page({
         userInfo: {},
         hasUserInfo: false,//是否已经授权并且登录
         authList: [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}],
-        goodsList: [], //当前分类的商品列表
-        allGoodsList: [], //按分类的商品列表
-        recommendList: [],
-        advList: [],
+        goodsList: [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}], //当前分类的商品列表
         imgUrls: [],
         currentSwiper: 0,
         modelLink: "",
         topName: "",
         homeindexData: "",
         showModal: false,
-        cartCount: 0, //购物车数量
-        // showAdModal:false,//广告弹窗
-        showLightModal: false, //扫一扫购买弹窗
         triggered: false,
         isHide: false,
         isShow: true,
-        winHeight: "", //窗口高度
-        currentTab: 0, //预设当前项的值
-        scrollLeft: 0, //tab标题的滚动条位置
         params: { pageNum: 1, pageRow: 5 },
         totalCount: 0,
         totalPage: 0,
-        typeList: [
-            // {
-            //   id: 1,
-            //   typeName: "精品挂耳"
-            // },
-            // {
-            //   id: 2,
-            //   typeName: "冻干粉"
-            // },
-            // {
-            //   id: 3,
-            //   typeName: "咖啡冲泡"
-            // },
-            // {
-            //   id: 4,
-            //   typeName: "周边"
-            // },
-        ],
-        typeId: "", //当前激活的typeId
-        lightData: "",
         allData: "",
-        couponList:[
-            // {isSelect:false,ticketId:1,preferentialPrice:15,ruleName:"新人优惠券",endTimeDesc:"2021/01/21",couponDesc:"全场通用"},
-            // {isSelect:false,ticketId:1,preferentialPrice:5,ruleName:"新人优惠券",endTimeDesc:"2021/01/21",couponDesc:"全场通用"},
-            // {isSelect:false,ticketId:1,preferentialPrice:2,ruleName:"新人优惠券",endTimeDesc:"2021/01/21",couponDesc:"全场通用"},
+        option1: [
+            { text: '全部分类', value: 0 },
+            { text: '分类1', value: 1 },
+            { text: '分类2', value: 2 },
           ],
-        qrCodeInfo: "", //url所带的扫一扫商品弹窗信息
-        minh: "", //首页滚动部分的高度
-    },
-    toSearch(){
-        wx.navigateTo({
-            url: '../search/search',
-        })
-    },
-    toVip(){
-        wx.switchTab({
-            url: '../my/my',
-        })
-    },
-    showLightModel() { //弹出扫一扫购买框
-        this.setData({
-            showLightModal: true,
-            qrCodeInfo: app.globalData.qrCodeInfo
-        })
-        this.getLightData() //扫一扫商品信息
-    },
-    cancelScanInfo() { //清除扫一扫弹框信息
-        app.globalData.qrCodeInfo = ""
-        this.setData({
-            qrCodeInfo: ""
-        })
+          option2: [
+            { text: '全部歌曲', value: 'a' },
+            { text: '免费歌曲', value: 'b' },
+            { text: '付费歌曲', value: 'c' },
+          ],
+          value1: 0,
+          value2: 'a',
     },
     showLogin() { //弹出登录弹窗
         this.setData({
             showModal: true
-        })
-    },
-    toCart() { //跳转购物车
-        wx.navigateTo({
-            url: '../cart/cart',
-        })
-    },
-    bindLightId() { //光Id页面
-        wx.navigateTo({
-            url: '../../lightPages/main/main',
-        })
-    },
-    toID() { //跳转光ID小程序
-        if (app.globalData.userInfo) {
-            this.setData({
-                    userInfo: app.globalData.userInfo,
-                    hasUserInfo: true,
-                    showModal: false,
-                })
-        }
-        if (!this.data.hasUserInfo) { //授权弹出框出现形式修改
-            this.setData({
-                showModal: true,
-            })
-        } else {
-            if (!app.globalData.token) { //如果没登录弹登录弹窗
-                this.showLogin()
-                    // wx.navigateTo({
-                    //   url: '../login/login?isID=1'
-                    // })
-            } else {
-                wx.navigateToMiniProgram({
-                    appId: "wx727066c68a67aed5",
-                    path: "/pages/main/main?openToken=" + app.globalData.token,
-                    success(res) {}
-                })
-            }
-        }
-    },
-    putCart(e) { //加入购物车
-        var that = this
-        api.http('/seedling-flash/mall/addCart', {
-                token: app.globalData.token,
-                skuCode: e.target.dataset.skucode,
-                skuNum: 1
-            },
-            'POST',
-            true).then(res => {
-            if (res.result == 0) {
-                wx.showToast({ title: "加入购物车成功！" })
-                var that = this
-                that.getList()
-                that.getRecommend()
-                that.getCart() //购物车信息
-            }
         })
     },
     toDetail(e) {
@@ -150,16 +48,10 @@ Page({
             url: '../goodsInfo/goodsInfo?skuCode=' + e.currentTarget.dataset.skucode,
         })
     },
-    toFoot() {
-        wx.navigateTo({
-            url: '../footMark/footMark'
-        })
-    },
     reflashData() {
         this.setData({
             hasUserInfo: true
         })
-        this.getRecommend()
         this.getList()
     },
     toLink(e) {
@@ -182,11 +74,6 @@ Page({
                 url: "../out/out?url=" + jumpUrl
             })
         }
-    },
-    toShop() {
-        wx.navigateTo({
-            url: "../shop/shop"
-        })
     },
     swiperChange: function(e) {
         this.setData({
@@ -242,79 +129,6 @@ Page({
         console.log('onAbort', e)
     },
     // 首页商品--------------------------------
-    getData() { //商品分类
-        var that = this
-        wx.request({
-            url: app.globalData.localApiUrl1 + "/seedling-flash/selectType",
-            data: {},
-            method: "GET",
-            success(res) {
-                that.setData({
-                    typeList: res.data.data.list
-                })
-                that.getList()
-            }
-        })
-    },
-    getList() { //商品列表
-        var that = this
-        api.http('/seedling-flash/mall/showSku', {
-                token: app.globalData.token
-            },
-            'POST',
-            true).then(res => {
-            if (res.result == 0) {
-                var constants = []
-                that.data.typeList.forEach(item => {
-                    var data = {}
-                    data.id = item.id
-                    data.category = []
-                    constants.push(data)
-                })
-                res.data.list.forEach(item => {
-                    constants.forEach(i => {
-                        if (item.typeId == i.id) {
-                            i.category.push(item)
-                        }
-                    })
-                })
-                if(!that.data.typeId){
-                    that.setData({
-                        typeId: that.data.typeList[0].id,
-                        allGoodsList: constants
-                    })
-                }else{
-                    that.setData({
-                        allGoodsList: constants
-                    })
-                }
-                that.getGoodsList()
-            }
-        })
-    },
-    getGoodsList() { //根据当前分类Id得出当前分类的所有商品列表
-        this.data.allGoodsList.forEach(item => {
-            if (item.id == this.data.typeId) {
-                this.setData({
-                    goodsList: item.category
-                })
-
-                // ljy 修改
-                this.setData({
-                    minh:Math.ceil(this.data.goodsList.length/2)
-                })
-                // if (this.data.goodsList.length > 2) {
-                //     this.setData({
-                //         minh: false
-                //     })
-                // } else {
-                //     this.setData({
-                //         minh: true
-                //     })
-                // }
-            }
-        })
-    },
     // 滚动切换标签样式
     switchTab: function(e) {
         var that = this
@@ -389,49 +203,6 @@ Page({
                 })
         }
     },
-    getCart() { //购物车数量
-        var that = this
-        api.http('/seedling-flash/mall/cartCount', {
-                token: app.globalData.token
-            },
-            'POST',
-            true).then(res => {
-            if (res.result == 0) {
-                that.setData({
-                    cartCount: res.data.cartCount
-                })
-                that.getTabBar().setData({//改变tabbar上购物车的值
-                    cartCount: res.data.cartCount
-                  })
-            }
-        })
-    },
-    getRecommend() { //推荐商品
-        var that = this
-        api.http('/seedling-flash/home/recommend', {
-                token: app.globalData.token
-            },
-            'POST',
-            true).then(res => {
-            if (res.result == 0) {
-                that.setData({
-                    recommendList: res.data.list
-                })
-            }
-        })
-    },
-    getAdv() { //广告模块
-        var that = this
-        api.http('/seedling-flash/findRegion', {},
-            'POST',
-            true).then(res => {
-            if (res.result == 0) {
-                that.setData({
-                    advList: res.data.list
-                })
-            }
-        })
-    },
     getBanner() { //首页信息
         var that = this
         wx.request({
@@ -485,6 +256,11 @@ Page({
             }
         })
     },
+    toVip(){
+        wx.navigateTo({
+          url: '../my/my',
+        })
+    },
     /**
      * 生命周期函数--监听页面初次渲染完成
      */
@@ -493,39 +269,22 @@ Page({
      * 生命周期函数--监听页面显示
      */
     onShow: function() {
-        //控制自定义tab的显示
-        if (typeof this.getTabBar === 'function' &&
-            this.getTabBar()) {
-            this.getTabBar().setData({
-                selected: 0
-            })
-        }
-        //控制自定义tab的显示
-        if (app.globalData.qrCodeInfo) { //扫一扫扫售货机商品
-            this.showLightModel()
-        }
+        wx.hideTabBar()
         if (app.globalData.userInfo && app.globalData.token) { //如果已经授权并登陆
             this.setData({ hasUserInfo: true })
         }
-        this.setData({ goodsList: [], params: { pageNum: 1, pageRow: 5 } })
+        // this.setData({ goodsList: [], params: { pageNum: 1, pageRow: 5 } })
         // wx.pageScrollTo({ //回到顶部
         //     scrollTop: 0,
         //     duration: 0
         // })
         this.getBanner() //首页信息
-        this.getCart() //购物车信息
-        this.getData() //首页商品分类
-        this.getRecommend() //推荐商品
-        this.getAdv() //广告模块
     },
 
     /**
      * 生命周期函数--监听页面隐藏
      */
     onHide: function() {
-        this.setData({
-            showAdModal: false
-        })
     },
 
     /**

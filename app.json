@@ -35,7 +35,9 @@
     "van-radio": "@vant/weapp/radio/index",
     "van-radio-group": "@vant/weapp/radio-group/index",
     "van-cell": "@vant/weapp/cell/index",
-    "van-cell-group": "@vant/weapp/cell-group/index"
+    "van-cell-group": "@vant/weapp/cell-group/index",
+    "van-dropdown-menu": "@vant/weapp/dropdown-menu/index",
+    "van-dropdown-item": "@vant/weapp/dropdown-item/index"
   },
   "plugins": {
     "chooseLocation": {
@@ -47,7 +49,6 @@
     "weui": true
   },
   "tabBar": {
-    "custom": true,
     "borderStyle": "white",
     "backgroundColor": "#fff",
     "selectedColor": "#305F6A",
@@ -55,15 +56,15 @@
     "list":[
       {
        "pagePath": "pages/homeIndex/homeIndex",
-        "text": "首页",
-        "iconPath": "./images/tab/tab5-1.png",
-        "selectedIconPath": "./images/tab/tab5.png"
+        "text": "",
+        "iconPath": "",
+        "selectedIconPath": ""
       },
       {
-        "pagePath": "pages/my/my",
-        "text": "我的",
-        "iconPath": "./images/tab/tab2-1.png",
-        "selectedIconPath": "./images/tab/tab2.png"
+        "pagePath": "pages/homeIndex/homeIndex",
+        "text": "",
+        "iconPath": "",
+        "selectedIconPath": ""
       }
     ]
   }
