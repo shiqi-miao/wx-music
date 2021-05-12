@@ -37,7 +37,8 @@
     "van-cell": "@vant/weapp/cell/index",
     "van-cell-group": "@vant/weapp/cell-group/index",
     "van-dropdown-menu": "@vant/weapp/dropdown-menu/index",
-    "van-dropdown-item": "@vant/weapp/dropdown-item/index"
+    "van-dropdown-item": "@vant/weapp/dropdown-item/index",
+    "van-popup": "@vant/weapp/popup/index"
   },
   "plugins": {
     "chooseLocation": {
@@ -57,14 +58,14 @@
       {
        "pagePath": "pages/homeIndex/homeIndex",
         "text": "",
-        "iconPath": "",
-        "selectedIconPath": ""
+        "iconPath": "images/my/arrow-bottom.png",
+        "selectedIconPath": "images/my/arrow-bottom.png"
       },
       {
         "pagePath": "pages/homeIndex/homeIndex",
         "text": "",
-        "iconPath": "",
-        "selectedIconPath": ""
+        "iconPath": "images/my/arrow-bottom.png",
+        "selectedIconPath": "images/my/arrow-bottom.png"
       }
     ]
   }

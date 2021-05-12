@@ -94,9 +94,9 @@ App({
     token: wx.getStorageSync('TOKEN'),
     // token: "jhQ/bypXQ26NcioNIY/PkRPKFtJ4utw3USrnDJcixFw=13",
     // localApiUrl1: "http://192.168.1.171:8181",//shixian
-    // localApiUrl1: "http://192.168.1.202:8181",//binge
+    localApiUrl1: "http://192.168.1.214:8181",//binge
     // localApiUrl1: "http://192.168.2.69:8181",//ziqiang
     // localApiUrl1: "https://test.robooot.com:1443",//test
-    localApiUrl1: "https://m.robooot.com:1443",//prod
+    // localApiUrl1: "https://m.robooot.com:1443",//prod
   }
 })

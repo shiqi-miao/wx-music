@@ -29,8 +29,7 @@ Component({
         if (e.detail.errMsg == "getPhoneNumber:ok") {
           wx.login({//获取weixin登录的code
             success: res => {
-              // console.log(e.detail, res.code)
-              api.http('/seedling-flash/kupper/api/login', //获取token
+              api.http('/flute/api/login', //获取token
                 {
                   encryptData:e.detail.encryptedData,
                   iv:e.detail.iv,
@@ -39,9 +38,10 @@ Component({
                 'POST', 
                 true).then(res => {
                 if (res.result == 0) {
+                  console.log(app.globalData.userInfo)
                   app.globalData.token = res.data.openToken
                   wx.setStorageSync("TOKEN", res.data.openToken)
-                  api.http('/seedling-flash/kupper/login/perfect', //提交微信头像等信息
+                  api.http('/flute/api/perfect', //提交微信头像等信息
                     {
                       nickName: app.globalData.userInfo.nickName,
                       portrait: app.globalData.userInfo.avatarUrl,

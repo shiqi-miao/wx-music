@@ -2,6 +2,7 @@
 const api = require('../../utils/http.js');
 const app = getApp()
 let innerAudioContext = wx.createInnerAudioContext(); //创建音频实例
+
 Page({
 
   /**
@@ -36,11 +37,15 @@ Page({
     cartCount:0,
     showTop:false,
     isShare:0,//是否是分享页
+    flag:false,//是否是会员
+    loading:false,
     // 音频
     audiolist:[
       {
-        audiosrc:'http://ws.stream.qqmusic.qq.com/C400003KGZNx19PvBB.m4a?guid=9338938287&vkey=BC6617F16B7829483C6D8F73CC4C9B0CB8C535D197DE7344F66E425EBA993507D5D79F0A12BF2A2E3FD5394482B5FDD72024229C81A18C56&uin=&fromtag=66',
-        coverimg:"https://goss.veer.com/creative/vcg/veer/800water/veer-146156021.jpg"
+        // audiosrc:'../../images/shop/vidio.m4a',
+        // audiosrc:"https://s19.aconvert.com/convert/p3r68-cdx67/vjano-0f2zm.mp3",
+        // audiosrc:"https://www.aconvert.com/samples/sample.mp3",
+        audiosrc:""
       }
     ],
     isPlayAudio: false,
@@ -67,6 +72,7 @@ Page({
         setTimeout(function () {
           //延时获取音频真正的duration
           var duration = innerAudioContext.duration;
+          console.log(33333,innerAudioContext.duration)
           var min = parseInt(duration / 60);
           var sec = parseInt(duration % 60);
           if (min.toString().length == 1) {
@@ -194,42 +200,39 @@ Page({
             })
     }
 },
-  toCart(){//跳转购物车
-    wx.switchTab({
-      url: '../cart/cart',
-    })
-  },
-  getCart() {//购物车数量
-    var that = this
-    api.http('/seedling-flash/mall/cartCount', 
-        {
-          token: app.globalData.token
-          },
-      'POST', 
-      true).then(res => {
-      if (res.result == 0) {
-            that.setData({
-              cartCount: res.data.cartCount
-            })
-      }
-    })
-  },
   getData() {//商品信息
     var that = this
-    api.http('/seedling-flash/mall/skuDetails', 
+    api.http('/flute/api/skuDetails', 
         {
           token: app.globalData.token,
-          skuCode:that.data.skuCode
+          skuCode:that.data.skuCode,
           },
       'POST', 
       true).then(res => {
       if (res.result == 0) {
+        that.data.audiolist[0].audiosrc=res.data.mp3Url
         that.setData({
           skuShowPictureList:res.data.skuShowPictureList,
-          skuLongPictureList:res.data.skuLongPictureList,
-          infoData:res.data.json
+          infoData:res.data.details,
+          flag:res.data.flag,
+          audiolist:that.data.audiolist
         })
-        // console.log(that.data.skuLongPictureList)
+        if(!that.data.flag){
+          wx.showModal({
+            title: '此歌曲为vip会员专享歌曲',
+            confirmText: '成为会员',
+            confirmColor: '#2D879C',
+            success: function (res) {
+              if (res.confirm) {
+                
+              } else {
+                wx.navigateBack({
+                  delta: -1,
+                })
+              }
+            }
+          })
+        }
         //设置返回时携带skuCode,和skuNum,方便返回时商品列表局部刷新
         var pages = getCurrentPages(); 
         var prevPage = pages[pages.length - 2];   //上一页
@@ -246,37 +249,97 @@ Page({
       currentSwiper: e.detail.current
     })
   },
-  sub(){
-    if(this.data.num>1){
-      this.data.num-=1
-      this.setData({
-        num:this.data.num
-      })
-    }
+  // 长按保存图片
+  saveImg(e){
+    var that=this
+    wx.showModal({
+      title: '保存图片',
+      confirmText: '保存',
+      confirmColor: '#2D879C',
+      showCancel:false,
+      success: function (res) {
+        if (res.confirm) {
+          let url = e.currentTarget.dataset.url;
+          //用户需要授权
+          wx.getSetting({
+            success: (res) => {
+              if (!res.authSetting['scope.writePhotosAlbum']) {
+                wx.authorize({
+                  scope: 'scope.writePhotosAlbum',
+                  success:()=> {
+                    // 同意授权
+                    that.commitSave(url);
+                  },
+                  fail: (res) =>{
+                    wx.showModal({
+                      content: '检测到您没打开相册授权，是否去设置打开？',
+                      confirmText: "确认",
+                      cancelText: "取消",
+                      success: function (res) {
+                        //点击“确认”时打开设置页面
+                        if (res.confirm) {
+                          wx.openSetting({
+                            success: (res) => { }
+                          })
+                        } else {
+                          // console.log('用户点击取消')
+                        }
+                      }
+                    })
+                  }
+                })
+              }else{
+                // 已经授权了
+                that.commitSave(url);
+              }
+            },
+            fail: (res) =>{
+            }
+          })   
+        } else {
+        }
+      }
+    })
   },
-  sum() {
-      this.data.num += 1
-      this.setData({
-        num: this.data.num
-      })
-  },
-  changeNum(e){
-    if(e.detail.value<=0){
-      e.detail.value=1
-    }
-    this.setData({
-      num:e.detail.value
+  //保存图片
+  commitSave(url){
+    wx.getImageInfo({
+      src: url,
+      success:(res)=> {
+        let path = res.path;
+        wx.saveImageToPhotosAlbum({
+          filePath:path,
+          success:(res)=> { 
+            wx.showToast({
+              title: '保存成功',
+              icon: 'success',
+              duration: 2000
+            })
+          },
+          fail:(res)=>{
+            console.log(res);
+          }
+        })
+      },
+      fail:(res)=> {
+        console.log(res);
+      }
     })
   },
   join(){
     var that=this
+    that.setData({
+      loading:true
+    })
     wx.downloadFile({
       // url: that.data.skuLongPictureList[0].pictureUrl,//图片下载地址
       url:this.data.audiolist[0].audiosrc,
       success (res) {
         // 只要服务器有响应数据，就会把响应内容写入文件并进入 success 回调，业务需要自行判断是否下载到了想要的内容
         if (res.statusCode === 200) {
-          console.log(res)
+          that.setData({
+            loading:false
+          })
           // wx.saveImageToPhotosAlbum({　　　　　　　　　//保存图片到本地
           //   filePath: res.tempFilePath,
           //   success(res) {
@@ -301,17 +364,16 @@ Page({
               console.log("err",err)
             }
           })
+        }else{
+          wx.showToast({
+            title: '网络错误',
+            icon: 'error',
+            duration: 2000
+          })
         }
       }
     })
   },
-  buyNow() {
-    var that = this
-    wx.navigateTo({
-      url: '../accountNow/accountNow?skuCode='+that.data.skuCode+'&skuNum='+that.data.num,
-    })
-  },
-  
   reflashData() {
     this.setData({
         hasUserInfo: true
@@ -344,7 +406,6 @@ Page({
       this.setData({hasUserInfo:true})
     }
     this.getData()
-    this.getCart()
     this.Initialization();
     this.loadaudio();
   },

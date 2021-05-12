@@ -1,45 +1,25 @@
 <view class="page" style="background-image:url({{homeindexData.homeIndex}})">
-    <!-- <view slot="refresher" class="refresh-container"
-    style="{{!isShow?'display: block; width: 100%; height: 80px; background: #666666; display: flex; align-items: center;':'display:none'}}"
-  >
-    <view class="view1">
-      展示广告
-    </view>
-    <view bindtap="goHome">回到首页</view>
-</view> -->
-    <!-- <scroll-view
-  class="{{isHide?'scrollClass-bottom':'scrollClass'}}"
-  scroll-y style="{{isShow?'width: 100%; min-height: 200px':'display:none'}}"
-  refresher-enabled="{{true}}"
-  refresher-triggered="{{triggered}}"
-  refresher-threshold="{{100}}"
-  refresher-default-style="white"
-  refresher-background="grey"
-  bindrefresherpulling="onPulling"
-  bindrefresherrefresh="onRefresh"
-  bindrefresherrestore="onRestore"
-  bindrefresherabort="onAbort"
-> -->
-    <!-- <button wx:if="{{hasUserInfo==false}}" class="cart" bindtap="getUserProfile">
-	<image src="../../images/shop/cart.png"></image>
-	<view class="num">{{cartCount}}</view>
-</button>
-<view wx:else class="cart" bindtap="toCart">
-	<image src="../../images/shop/cart.png"></image>
-	<view class="num">{{cartCount}}</view>
-</view> -->
     <button wx:if="{{hasUserInfo==false}}" bindtap="getUserProfile" class="top-bg"></button>
     <view wx:else class="top-bg" bindtap="toFoot">
     </view>
     <view class="shop container">
-        <view class="coupon flex-center-Y justify-between" bindtap="toVip">
+        <view class="coupon flex-center-Y justify-between">
             <view class="flex-center-Y">
                 <view class="photo">
-                    <image src="../../images/my/noLogin.png"></image>
+                    <image src="{{hasUserInfo==false ? '../../images/my/noLogin.png' : vipData.portrait}}"></image>
                 </view>
-                <text class="name">陈比方</text>
+                <button wx:if="{{hasUserInfo==false}}" bindtap="getUserProfile" style="font-size:28rpx">您还未登录~</button>
+                <view class="name" wx:else>
+                    {{vipData.nickName}}
+                    <view wx:if="{{vipData.gmtCreated}}" style="margin-top:10rpx;color:rgba(45, 135, 156, 1);font-size:24rpx">{{vipData.gmtCreated}}到期</view>
+                    <view wx:else style="margin-top:10rpx;color:rgba(45, 135, 156, 1);font-size:24rpx">您还不是会员哦~</view>
+                </view>
             </view>
-            <view class="couponBtn">会员中心</view>
+            <button class="couponBtn" wx:if="{{hasUserInfo==false}}" bindtap="getUserProfile" style="font-size:28rpx;margin:0">去登录</button>
+            <view wx:else>
+                <view wx:if="{{vipData.gmtCreated}}" class="couponBtn" bindtap="toVip">续费会员</view>
+                <view wx:else class="couponBtn" bindtap="toVip">开通会员</view>
+            </view>
         </view>
         <view class="left" bindtap="toShop">
             <image src="../../images/shop/shop.png"></image>
@@ -71,29 +51,39 @@
     </view>
     <view class="flex-center-Y" style="padding-top:30rpx;background-color: rgba(249, 249, 249, 1);transform:translateY(-40rpx)">
         <view class="goods">
+            <view class="over" wx:if="{{showSearch}}"></view>
+            <van-popup show="{{ showSearch }}" position="top" custom-style="height: 264rpx;top:120rpx" overlay-style="background:transparent" bind:close="search" >
+                <view class="searchBox">
+                    <view class="search-l">
+                        <input placeholder="搜索歌曲名称" class="search-int" value="{{inputValue}}" bindinput="getSearch"></input>
+                        <image class="search-img1" src="../../images/homeIndex/search.png"></image>
+                        <image class="search-img2" src="../../images/homeIndex/clear.png" catchtap="clear"></image>
+                        <view class="search-int1" catchtap="clear"></view>
+                    </view>
+                </view>
+            </van-popup>
             <view class="img" bindtap="toSearch">
-                <image bindtap="toShop" src="../../images/homeIndex/search.png" />
+                <image src="../../images/homeIndex/search.png" />
             </view>
             <view class="tabs">
                 <view class="left">
                     <van-dropdown-menu active-color="#2d879c">
-                        <van-dropdown-item value="{{ value1 }}" options="{{ option1 }}" />
+                        <van-dropdown-item value="{{ typeId }}" options="{{ typeList }}" />
                         <van-dropdown-item value="{{ value2 }}" options="{{ option2 }}" />
                     </van-dropdown-menu>
                 </view>
             </view>
-            <view class="container" style="height: calc(100vh - 938rpx);overflow: scroll;">
-                <view wx:for="{{goodsList}}" wx:key="index" class="article content" bindtap="toDetail" data-skucode="{{item.skuCode}}">
-                    <view class="bottom">
-                        <view class="title">风吹麦浪</view>
-                        <view class="detail flex-center-Y justify-between">这是副标题这是副标题<span>上传时间: 2019-5-6</span></view>
+            <scroll-view scroll-y="true" class="container" style="width:680rpx;height: calc(100vh - 1000rpx);overflow: scroll;" bindscrolltolower="bindscrolltolower">
+                <view wx:for="{{goodsList}}" wx:key="index" class="article content">
+                    <button class="mask" wx:if="{{hasUserInfo==false}}" bindtap="getUserProfile"></button>
+                    <view class="bottom" bindtap="toDetail" data-skucode="{{item.skuCode}}">
+                        <view class="title">{{item.skuName}}</view>
+                        <view class="detail flex-center-Y justify-between">{{item.gradeDesc}}<span>上传时间: {{item.gmtCreated}}</span></view>
                     </view>
                 </view>
-            </view>
+            </scroll-view>
         </view>
     </view>
 </view>
-<!-- </scroll-view> -->
 <login-model showModal="{{showModal}}" bindcloseModel="closeLoginModel" bindreflashData="reflashData"></login-model>
-<!-- <ad-model showModal="{{showAdModal}}"></ad-model> -->
 <light-model showModal="{{showLightModal}}" hasUserInfo="{{hasUserInfo}}" lightData="{{lightData}}" allData="{{allData}}" couponList="{{couponList}}" bindcancelScanInfo="cancelScanInfo" bindshowLogin="showLogin"></light-model>
