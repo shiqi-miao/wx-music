@@ -37,8 +37,8 @@ Page({
     cartCount:0,
     showTop:false,
     isShare:0,//是否是分享页
-    flag:false,//是否是会员
     loading:false,
+    showPopup:false,
     // 音频
     audiolist:[
       {
@@ -214,25 +214,8 @@ Page({
         that.setData({
           skuShowPictureList:res.data.skuShowPictureList,
           infoData:res.data.details,
-          flag:res.data.flag,
           audiolist:that.data.audiolist
         })
-        if(!that.data.flag){
-          wx.showModal({
-            title: '此歌曲为vip会员专享歌曲',
-            confirmText: '成为会员',
-            confirmColor: '#2D879C',
-            success: function (res) {
-              if (res.confirm) {
-                
-              } else {
-                wx.navigateBack({
-                  delta: -1,
-                })
-              }
-            }
-          })
-        }
         //设置返回时携带skuCode,和skuNum,方便返回时商品列表局部刷新
         var pages = getCurrentPages(); 
         var prevPage = pages[pages.length - 2];   //上一页
@@ -241,7 +224,25 @@ Page({
           skuNum:that.data.infoData.skuNum
         })
         //设置返回时携带skuCode,和skuNum,方便返回时商品列表局部刷新
-      }
+      }  
+    }).catch(()=>{
+        that.setData({
+          showPopup:true
+        })
+        // wx.showModal({
+        //   title: '此歌曲为vip会员专享歌曲',
+        //   confirmText: '成为会员',
+        //   confirmColor: '#2D879C',
+        //   success: function (res) {
+        //     if (res.confirm) {
+              
+        //     } else {
+        //       wx.navigateBack({
+        //         delta: -1,
+        //       })
+        //     }
+        //   }
+        // })
     })
   },
   swiperChange: function (e) {
@@ -456,18 +457,6 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function (ops) {
-    if (ops.from === 'button') {
-      // 来自页面内转发按钮
-    } 
-    return {
-      title: '光芽COFFEE',
-      path: 'pages/goodsInfo/goodsInfo?skuCode=' + this.data.skuCode + '&isShare=1',
-      // imageUrl: this.data.userInfo.avatarUrl,
-      success: function (res) { 
-        wx.showToast({ title: "分享成功!", duration: 3000 })
-      },
-      fail: function (res) {
-      }
-    }
+    
   }
 })

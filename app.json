@@ -4,7 +4,8 @@
     "pages/out/out",
     "pages/search/search",
     "pages/my/my",
-    "pages/goodsInfo/goodsInfo"
+    "pages/goodsInfo/goodsInfo",
+    "pages/myOrder/myOrder"
   ],
   "permission": {
     "scope.userLocation": {

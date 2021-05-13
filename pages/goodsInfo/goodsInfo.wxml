@@ -1,5 +1,14 @@
 <!--pages/goodsInfo/goodsInfo.wxml-->
 <view class="content">
+    <van-popup show="{{ showPopup }}" bind:close="onClose" round>
+      <view class="buyBox">
+        <view class="title">此歌曲为vip会员专享歌曲</view>
+        <view class="bottom flex-center-Y">
+          <view class="left">单曲购买</view>
+          <view class="right">成为会员</view>
+        </view>
+      </view>
+    </van-popup>
     <van-loading type="spinner" wx:if="{{loading}}" class="loadingStyle" size="20">正在下载中...</van-loading>
     <view class="infoBox">
         <!-- <view class="type">{{infoData.typeName}}<text> | 发布时间: {{infoData.gmtCreated}}</text></view> -->

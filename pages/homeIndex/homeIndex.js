@@ -26,17 +26,17 @@ Page({
         totalPage: 0,
         allData: "",
         typeList: [
-            { text: '全部分类', value: 0 },
-            { text: '分类1', value: 1 },
-            { text: '分类2', value: 2 },
+            // { text: '全部分类', value: 0 },
+            // { text: '分类1', value: 1 },
+            // { text: '分类2', value: 2 },
           ],
           option2: [
-            { text: '全部歌曲', value: 'a' },
-            { text: '免费歌曲', value: 'b' },
-            { text: '精品歌曲', value: 'c' },
+            { text: '全部歌曲', value: '' },
+            { text: '普通歌曲', value: 'N' },
+            { text: '精品歌曲', value: 'Y' }
           ],
-          typeId: 0,
-          value2: 'a',
+          typeId: '',
+          value2: '',
           showSearch:false,
           inputValue:"",
           vipData:""
@@ -71,7 +71,10 @@ Page({
         api.http('/flute/api/musicScore', 
             {
                 pageNum:that.data.params.pageNum,
-                pageRow:that.data.params.pageRow
+                pageRow:that.data.params.pageRow,
+                typeId:that.data.typeId,
+                isFree:that.data.value2,
+                inputValue:that.data.inputValue
             },
         'post', 
         true).then(res => {
@@ -88,6 +91,11 @@ Page({
                 totalPage:that.data.totalPage
             })
         }
+        })
+    },
+    toOrder(){
+        wx.navigateTo({
+          url: '../myOrder/myOrder',
         })
     },
     toDetail(e) {
@@ -210,8 +218,32 @@ Page({
             showSearch:false
         })
     },
+    getTypeId(value){
+        this.setData({
+            typeId:value.detail
+        })
+        this.getSearch()
+    },
+    getFeeType(value){
+        this.setData({
+            value2:value.detail
+        })
+        this.getSearch()
+    },
     getSearch(){
-
+        this.setData({
+            goodsList:[],
+            params: { pageNum: 1, pageRow: 5 },
+            totalCount: 0,
+            totalPage: 0
+        })
+        this.getList()
+    },
+    getInput(e){
+        this.setData({
+            inputValue:e.detail.value
+        })
+        this.getSearch()
     },
     clear(){
         this.setData({
