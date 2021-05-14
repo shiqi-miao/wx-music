@@ -5,10 +5,10 @@
    <image src="../../images/homeIndex/kupper.png"/>
   </view>
   <view class="modal-title"> 
-   光芽COFFEE授权 申请
+   竹笛吧授权 申请
   </view>
   <view> 
-    检测到您未授权光芽COFFEE , 请授权
+    检测到您未授权竹笛吧 , 请授权
   </view>
   <form> 
       <button class="btn" open-type="getUserInfo" bindgetuserinfo="getUserInfo">确定</button>

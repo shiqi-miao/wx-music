@@ -1,8 +1,6 @@
 {
-  "navigationBarTitleText": "光芽COFFEE",
+  "navigationBarTitleText": "竹笛吧",
   "usingComponents": {
-    "login-model": "/component/loginModel/index",
-    "ad-model": "/component/adModel/index",
-    "light-model": "/component/lightModel/index"
+    "login-model": "/component/loginModel/index"
   }
 }

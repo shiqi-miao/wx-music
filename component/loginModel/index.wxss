@@ -58,7 +58,7 @@ textarea{height: 160rpx;padding-top: 28rpx}
 .modal-dialog {
     position:relative;
     width: 690rpx;
-    height: 540rpx;
+    height: 450rpx;
     overflow: hidden;
     position: fixed;
     bottom: 200rpx;

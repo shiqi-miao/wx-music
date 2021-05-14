@@ -2,10 +2,19 @@
 <view class="content">
     <van-popup show="{{ showPopup }}" bind:close="onClose" round>
       <view class="buyBox">
-        <view class="title">此歌曲为vip会员专享歌曲</view>
+        <view class="title">您没有查看歌曲的权限</view>
         <view class="bottom flex-center-Y">
-          <view class="left">单曲购买</view>
-          <view class="right">成为会员</view>
+          <view class="left" bindtap="buyOne">单曲购买</view>
+          <view class="right" bindtap="buyVip">成为会员</view>
+        </view>
+      </view>
+    </van-popup>
+    <van-popup show="{{ showCopy }}" bind:close="onCloseBuy" round>
+      <view class="buyBox">
+        <!-- <view class="title">竹笛吧</view> -->
+        <view class="title" style="font-size:32rpx;line-height:1.5;margin:40rpx 40rpx 30rpx 40rpx">点击复制,打开浏览器并在地址栏粘贴</view>
+        <view class="bottom flex-center-Y">
+          <view class="center" bindtap="copy">复制</view>
         </view>
       </view>
     </van-popup>
@@ -31,7 +40,7 @@
 </view>
 <view class="blank"></view>
 <!-- 音频 -->
-<view wx:if="{{audiolist[0].audiosrc > 0 }}">
+<view wx:if="{{audiolist[0].audiosrc }}">
   <view class='audio'>
     <view class='audio_btn' catchtap='playAudio'>
       <image src='../../images/homeIndex/start.png' class='image-full' wx:if="{{!isPlayAudio}}"></image>
@@ -50,7 +59,7 @@
 <view class="goodsInfo" style="display: flex; flex-direction: column;">
     <image bindlongpress="saveImg" wx:for="{{skuShowPictureList}}" wx:key="index" src="{{item.pictureUrl}}" data-url="{{item.pictureUrl}}" mode="widthFix"></image>
 </view>
-<view class="fix-bottom flex-center-Y justify-center" wx:if="{{audiolist[0].audiosrc > 0 }}">
+<view class="fix-bottom flex-center-Y justify-center" wx:if="{{audiolist[0].audiosrc}}">
     <view wx:if="{{hasUserInfo==false}}" bindtap="getUserProfile" class="flex-center-Y">
             <image style="width:40rpx;height:40rpx" src="../../images/shop/downLoad.png"></image>
             <button class="btn-l">下载歌曲</button>

@@ -1,8 +1,0 @@
-<view class="modal-mask" wx:if="{{showModal}}"></view>  
-<view class="modal-dialog" wx:if="{{showModal}}">
-  <view class="box">
-    <image class="img" src="../../images/homeIndex/foot.png"></image>
-    <view class="country">{{country}}</view>
-    <image class="img1" bindtap="close" src="../../images/homeIndex/foot1.png"></image>
-  </view>
-</view>

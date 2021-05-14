@@ -1,6 +1,5 @@
 {
   "navigationBarTitleText": "曲谱详情",
   "usingComponents": {
-    "login-model": "/component/loginModel/index",
-    "back-btn":"/component/backBtn/index"}
+    "login-model": "/component/loginModel/index"}
 }

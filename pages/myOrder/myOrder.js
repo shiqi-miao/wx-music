@@ -8,13 +8,8 @@ Page({
    */
   data: {
     list:[ 
-      // [
-      //   { machine: "海创园自贩机01", name: "哥斯达黎加宝藏庄园", time: "2019-03-05 11:11:11", money: "15.00", type:"微信免密"}
-      // ],
-      // [
-      //   { machine: "海创园自贩机01", name: "哥斯达黎加宝藏庄园", time: "2019-03-05 11:11:11", money: "15.00", type:"微信免密"},
-      //   { machine: "海创园自贩机01", name: "哥斯达黎加宝藏庄园", time: "2019-03-05 11:11:11", money: "15.00", type:"微信免密"}
-      // ],
+      {
+     skuName: "哥斯达黎加宝藏庄园", gmtCreated: "2019-03-05 11:11:11", payPrice: "15.00",detail:"描述描述描述"}
     ],
     params: { pageNum: 1, pageRow: 5 },
     totalCount: 0,

@@ -37,7 +37,6 @@ Page({
           ],
           typeId: '',
           value2: '',
-          showSearch:false,
           inputValue:"",
           vipData:""
     },
@@ -74,7 +73,7 @@ Page({
                 pageRow:that.data.params.pageRow,
                 typeId:that.data.typeId,
                 isFree:that.data.value2,
-                inputValue:that.data.inputValue
+                skuName:that.data.inputValue
             },
         'post', 
         true).then(res => {
@@ -208,16 +207,6 @@ Page({
           url: '../my/my',
         })
     },
-    toSearch(){
-        this.setData({
-            showSearch:true
-        })
-    },
-    search(){
-        this.setData({
-            showSearch:false
-        })
-    },
     getTypeId(value){
         this.setData({
             typeId:value.detail
@@ -249,7 +238,7 @@ Page({
         this.setData({
             inputValue:""
         })
-        this.getList()
+        this.getSearch()
     },
     /**
      * 生命周期函数--监听页面初次渲染完成

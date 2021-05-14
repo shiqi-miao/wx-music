@@ -4,14 +4,14 @@
   <view class="close" bindtap="cancel">
     <image src="../../images/homeIndex/close.png"></image>
   </view>
-  <view class="bgm">
+  <!-- <view class="bgm">
     <image src="../../images/homeIndex/login.png"></image>
-  </view>
+  </view> -->
   <view class="img">
    <image style="width:84rpx;height:84rpx;position:relative" src="../../images/homeIndex/kupper.png"/>
   </view>
   <view class="modal-title"> 
-    欢迎登录光芽咖啡~
+    欢迎登录竹笛吧~
   </view>
   <button bindtap="getUserProfile" class="btn flex-center-Y">
     <image src="../../images/homeIndex/wechat.png"></image>

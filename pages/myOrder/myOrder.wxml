@@ -1,45 +1,20 @@
 <!--pages/myOrder/myOrder.wxml-->
 <view class="bg-grey mH-100">
   <view class="container">
-    <view class="box" wx:for="{{list}}" wx:key="orderCode" data-ordercode="{{item.orderCode}}" data-status="{{item.deliveryStatus}}" bindtap="toDetail">
-      <view class="payTime" wx:if="{{item.deliveryStatus=='D'}}">
-        剩余 {{item.min}}分{{item.mia}}秒
-      </view>
+    <view class="box" wx:for="{{list}}" wx:key="orderCode" data-ordercode="{{item.orderCode}}" data-status="{{item.deliveryStatus}}">
       <view class="top flex-center-Y justify-between">
         <view class="flex-center-Y">
-          <image class="lineImg" src="{{item.deliveryStatus?'../../images/my/online.png':'../../images/my/underline.png'}}"></image>
           {{item.gmtCreated}}
         </view>
-        <view class="status" wx:if="{{!item.deliveryStatus}}">支付成功</view>
-        <view class="status" wx:if="{{item.deliveryStatus=='D'}}">待付款</view>
-        <view class="status" wx:if="{{item.deliveryStatus=='W'}}">待发货</view>
-        <view class="status" wx:if="{{item.deliveryStatus=='Y'}}">已发货</view>
-        <view class="status" wx:if="{{item.deliveryStatus=='Q'}}">已完成</view>
-        <view class="status" wx:if="{{item.deliveryStatus=='S'}}">已取消</view>
+        <view class="status">支付成功</view>
       </view>
-      <view wx:if="{{item.orderDetailsList.length==1}}">
-        <view class="line flex-center-Y justify-between" wx:for="{{item.orderDetailsList}}" wx:for-item="info">
-          <view class="flex-center-S">
-            <image src="{{info.skuPicture}}"></image>
-            <view>
-              <view class="name limit-ellipsis">{{info.skuName}}</view>
-              <view class="name name1 limit-ellipsis">{{info.detail}}</view>
-            </view>
-          </view>
-          <view class="price">
-            <view class="num">共{{item.skuNum}}件</view>
-          </view>
-        </view>
-      </view>
-      <view wx:else>
+      <view>
         <view class="line flex-center-Y justify-between">
-          <view class="left">
-            <scroll-view scroll-x="true" class="tab-h" scroll-left="{{scrollLeft}}">
-                <image src="{{info.skuPicture}}" wx:for="{{item.orderDetailsList}}" wx:for-item='info' wx:key="index" class="goodsImg"></image>
-            </scroll-view>
-          </view>
-          <view class="price">
-            <view class="num">共{{item.skuNum}}件</view>
+          <view class="flex-center-S">
+            <view>
+              <view class="name limit-ellipsis">{{item.skuName}}</view>
+              <!-- <view class="name name1 limit-ellipsis">{{item.detail}}</view> -->
+            </view>
           </view>
         </view>
       </view>

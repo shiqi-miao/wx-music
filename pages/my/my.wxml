@@ -1,77 +1,40 @@
 <!--pages/my/my.wxml-->
 <view class="padding-btn">
   <view class="background-url">
-    <image class="bg-img" src="../../images/my/banner.png"></image>
-    <view wx:if="{{myData.userDetails.userPhone}}" class="info flex-center-Y">
+    <!-- <image class="bg-img" src="../../images/my/banner.png"></image> -->
+    <view class="info flex-center-Y">
         <view class="img" style="position:relative" bindtap="toEdit">
-          <image class="border-50" src="{{myData.userDetails.portrait}}"></image>
+          <image class="border-50" src="{{vipData.portrait}}"></image>
         </view>
         <view class="detail">
           <view class="name" bindtap="toEdit">
-            {{myData.userDetails.userName}} <image style="width:32rpx;height:32rpx;margin-left:40rpx" src="../../images/my/edit.png"/>
+            {{vipData.nickName}}
+            <text style="font-size:28rpx;color:#f8c00a">{{vipData.memberGrade==1000 ? '' : vipData.gradeName}}</text>
           </view>
-          <!-- <view style="margin-top:30rpx;color:#ffffff;">{{myData.userDetails.userPhone}}</view> -->
-          <view style="margin-top:30rpx;color:#ffffff;font-size:28rpx">2021/05/10到期</view>
-        </view>
-        <view class="payBtn">续费会员</view>
-    </view>
-    <view wx:else class="info flex-center-Y">
-        <view class="img" style="position:relative" bindtap="toEdit">
-          <image class="border-50" src="../../images/my/noLogin.png"></image>
-        </view>
-        <view class="detail">
-          <view class="name" style="font-weight:400">
-            未登录
-          </view>
+          <view wx:if="{{vipData.memberGrade==1000}}" style="margin-top:30rpx;color:#ffffff;font-size:28rpx">开通会员,享更多权益~</view>
+          <view wx:else style="margin-top:30rpx;color:#ffffff;font-size:28rpx">{{vipData.gmtCreated}}到期</view>
         </view>
     </view>
   </view>
-  <view class="bottomBox">
-    <view class="flex-center-Y" style="margin-bottom:40rpx">
-      <view class="flex-center-Y" style="width:70%" bindtap="toAddress">
-        <view class="activity">
-          <image src="../../images/my/icon1.png"></image>
-        </view>
-        <text style="font-size: 28rpx;padding-left: 10rpx" bindtap="toAddress">地址管理</text>
-      </view>
-      <view class="activeimg" bindtap="toAddress">
-        <image src="../../images/my/arrow.png"></image>
-      </view>
+  <view class="flex-center-Y" style="flex-wrap:wrap">
+    <view wx:for="{{myData}}" wx:key="index" class="{{item.isActive ? 'active bottomBox' : 'bottomBox'}}" data-index="{{index}}" bindtap="selectVip">
+      <view class="title">{{item.gradeName}}</view>
+      <view class="date">{{item.cycleTerm}}年</view>
+      <view class="tip">这是会员权益介绍这是介绍</view>
+      <view class="price">￥{{item.totalFee}}</view>
     </view>
-    <view class="flex-center-Y" style="margin-bottom:40rpx">
-      <view class="flex-center-Y" style="width:70%" bindtap="toOrder">
-        <view class="activity">
-          <image src="../../images/my/icon4.png"></image>
-        </view>
-        <text style="font-size: 28rpx;padding-left: 10rpx">条款政策</text>
-      </view>
-      <view class="activeimg" bindtap="toOrder">
-        <image src="../../images/my/arrow.png"></image>
-      </view>
-    </view>
-    <view class="flex-center-Y" style="margin-bottom:40rpx">
-      <view class="flex-center-Y" style="width:70%" bindtap="toMyOrder">
-        <view class="activity">
-          <image src="../../images/my/icon2.png"></image>
-        </view>
-        <text style="font-size: 28rpx;padding-left: 10rpx">我的优惠券</text>
-      </view>
-      <view class="activeimg" bindtap="toMyOrder">
-        <image src="../../images/my/arrow.png"></image>
-      </view>
-    </view>
-    <button open-type="contact" class="flex-center-Y" style="margin-bottom:0rpx;height:50rpx">
-      <view class="flex-center-Y" style="width:70%">
-        <view class="activity" style="transform:translateY(-20rpx);">
-          <image src="../../images/my/icon5.png"></image>
-        </view>
-        <text style="font-size: 28rpx;padding-left: 10rpx">帮助反馈</text>
-      </view>
-      <view class="activeimg">
-        <image style="margin-bottom:6rpx" src="../../images/my/arrow.png"></image>
-      </view>
-    </button>
   </view>
+  <view class="fix-bottom flex-center-Y justify-between" wx:if="{{vipData.memberGrade==1000}}">
+    <view>￥{{selectData.totalFee}}</view>
+    <view class="flex-center-Y">
+      <!-- <view class="btn" wx:if="{{selectData.gradeId==vipData.memberGrade && isLoading==false}}" bindtap="buyVip">
+        续费会员
+      </view>
+      <button  wx:if="{{selectData.gradeId==vipData.memberGrade && isLoading}}" class="btn" loading loading-type="spinner"></button> -->
+      <view wx:if="{{vipData.memberGrade==1000 && isLoading==false}}" class="btn" bindtap="buyVip">
+        开通会员
+      </view>
+      <button  wx:if="{{vipData.memberGrade==1000 && isLoading}}" class="btn" loading loading-type="spinner"></button>
+    </view>
 </view>
-<login-model showModal="{{showModal}}"  bindcloseModel="closeLoginModel" bindreflashData="reflashData"></login-model>
-<role-model showModal="{{showRoleModal}}" bindshowLogin="showLogin"></role-model>
+</view>

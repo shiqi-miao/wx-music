@@ -1,10 +1,10 @@
 {
   "pages": [
     "pages/homeIndex/homeIndex",
+    "pages/goodsInfo/goodsInfo",
+    "pages/my/my",
     "pages/out/out",
     "pages/search/search",
-    "pages/my/my",
-    "pages/goodsInfo/goodsInfo",
     "pages/myOrder/myOrder"
   ],
   "permission": {

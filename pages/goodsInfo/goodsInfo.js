@@ -17,10 +17,6 @@ Page({
       "https://wx.qlogo.cn/mmopen/vi_32/DYAIOgq83eq8xaPibYS3TuaGvIrEmavRr5FCBibO3ibU2iaXu5yt20MtYwia4UD5ofrvpqHrnKWiahGOLtuGKyDYYEEA/132",
       "https://wx.qlogo.cn/mmopen/vi_32/DYAIOgq83eq8xaPibYS3TuaGvIrEmavRr5FCBibO3ibU2iaXu5yt20MtYwia4UD5ofrvpqHrnKWiahGOLtuGKyDYYEEA/132"
     ],
-    skuLongPictureList:[
-      // "https://wx.qlogo.cn/mmopen/vi_32/DYAIOgq83eq8xaPibYS3TuaGvIrEmavRr5FCBibO3ibU2iaXu5yt20MtYwia4UD5ofrvpqHrnKWiahGOLtuGKyDYYEEA/132",
-      // "https://wx.qlogo.cn/mmopen/vi_32/DYAIOgq83eq8xaPibYS3TuaGvIrEmavRr5FCBibO3ibU2iaXu5yt20MtYwia4UD5ofrvpqHrnKWiahGOLtuGKyDYYEEA/132"
-    ],
     infoData:{
       skuName: "测试sku100g",
       discountRate: 5.0,
@@ -31,19 +27,14 @@ Page({
       procurementPrice: 0.01,
       skuCode: "001"
     },
-    currentSwiper: 0,
-    num:1,
     skuCode:'',
-    cartCount:0,
     showTop:false,
-    isShare:0,//是否是分享页
     loading:false,
     showPopup:false,
+    showCopy:false,
     // 音频
     audiolist:[
       {
-        // audiosrc:'../../images/shop/vidio.m4a',
-        // audiosrc:"https://s19.aconvert.com/convert/p3r68-cdx67/vjano-0f2zm.mp3",
         // audiosrc:"https://www.aconvert.com/samples/sample.mp3",
         audiosrc:""
       }
@@ -200,6 +191,11 @@ Page({
             })
     }
 },
+  onClose(){
+    wx.navigateBack({
+      delta: -1,
+    })
+  },
   getData() {//商品信息
     var that = this
     api.http('/flute/api/skuDetails', 
@@ -210,44 +206,21 @@ Page({
       'POST', 
       true).then(res => {
       if (res.result == 0) {
-        that.data.audiolist[0].audiosrc=res.data.mp3Url
-        that.setData({
-          skuShowPictureList:res.data.skuShowPictureList,
-          infoData:res.data.details,
-          audiolist:that.data.audiolist
-        })
-        //设置返回时携带skuCode,和skuNum,方便返回时商品列表局部刷新
-        var pages = getCurrentPages(); 
-        var prevPage = pages[pages.length - 2];   //上一页
-        prevPage.setData({
-          skuCode: that.data.skuCode,
-          skuNum:that.data.infoData.skuNum
-        })
-        //设置返回时携带skuCode,和skuNum,方便返回时商品列表局部刷新
+          that.data.audiolist[0].audiosrc=res.data.details.mp3Url
+          // that.data.audiolist[0].audiosrc="https://shanghai.qiuguanzhu.com/videos/ai_parse/2021/01/27/161173327013164.mp4"
+          that.setData({
+            skuShowPictureList:res.data.skuShowPictureList,
+            infoData:res.data.details,
+            audiolist:that.data.audiolist
+          })
+        if(res.data.flag){
+        }else{
+          that.setData({
+            showPopup:true
+          })
+        }
       }  
     }).catch(()=>{
-        that.setData({
-          showPopup:true
-        })
-        // wx.showModal({
-        //   title: '此歌曲为vip会员专享歌曲',
-        //   confirmText: '成为会员',
-        //   confirmColor: '#2D879C',
-        //   success: function (res) {
-        //     if (res.confirm) {
-              
-        //     } else {
-        //       wx.navigateBack({
-        //         delta: -1,
-        //       })
-        //     }
-        //   }
-        // })
-    })
-  },
-  swiperChange: function (e) {
-    this.setData({
-      currentSwiper: e.detail.current
     })
   },
   // 长按保存图片
@@ -327,51 +300,131 @@ Page({
       }
     })
   },
+  onCloseBuy(){
+    this.setData({
+      showCopy:false
+    })
+  },
+  copy(){
+    var that=this
+    wx.setClipboardData({
+      data: that.data.audiolist[0].audiosrc,
+      success (res) {
+        wx.getClipboardData({
+          success (res) {
+            // wx.showToast({
+            //   title: '复制成功,请前往浏览器粘贴~',
+            //   icon: "none",
+            //   duration: 1500
+            // })
+            that.setData({
+              showCopy:false
+            })
+          }
+        })
+      }
+    })
+  },
   join(){
     var that=this
     that.setData({
-      loading:true
+      showCopy:true
     })
-    wx.downloadFile({
-      // url: that.data.skuLongPictureList[0].pictureUrl,//图片下载地址
-      url:this.data.audiolist[0].audiosrc,
-      success (res) {
-        // 只要服务器有响应数据，就会把响应内容写入文件并进入 success 回调，业务需要自行判断是否下载到了想要的内容
-        if (res.statusCode === 200) {
-          that.setData({
-            loading:false
-          })
-          // wx.saveImageToPhotosAlbum({　　　　　　　　　//保存图片到本地
-          //   filePath: res.tempFilePath,
-          //   success(res) {
-          //     wx.showToast({
-          //       title: '保存成功',
-          //       icon: 'success',
-          //       duration: 2000
-          //     })
-          //   }
-          // })
-          wx.saveVideoToPhotosAlbum({　　　　　　　　　//保存视频到本地
-            filePath: res.tempFilePath,
-            success(res) {
-              console.log(1111,res)
-              wx.showToast({
-                title: '保存成功',
-                icon: 'success',
-                duration: 2000
-              })
-            },
-            fail(err){
-              console.log("err",err)
-            }
-          })
+    // that.setData({
+    //   loading:true
+    // })
+    // wx.downloadFile({
+    //   url:this.data.audiolist[0].audiosrc,
+    //   success (res) {
+    //     // 只要服务器有响应数据，就会把响应内容写入文件并进入 success 回调，业务需要自行判断是否下载到了想要的内容
+    //     if (res.statusCode === 200) {
+    //       that.setData({
+    //         loading:false
+    //       })
+    //       wx.saveVideoToPhotosAlbum({　　　　　　　　　//保存视频到本地
+    //         filePath: res.tempFilePath,
+    //         success(res) {
+    //           wx.showToast({
+    //             title: '保存成功',
+    //             icon: 'success',
+    //             duration: 2000
+    //           })
+    //         },
+    //         fail(err){
+    //           wx.showToast({
+    //             title: '网络异常',
+    //             icon: 'error',
+    //             duration: 1500
+    //           })
+    //           console.log("err",err)
+    //         }
+    //       })
+    //     }else{
+    //       wx.showToast({
+    //         title: '网络错误',
+    //         icon: 'error',
+    //         duration: 2000
+    //       })
+    //     }
+    //   }
+    // })
+  },
+  buyVip(){//开通vip
+    wx.navigateTo({
+      url: '../my/my',
+    })
+  },
+  buyOne(){//单曲购买
+    var that=this
+    that.setData({
+      isLoading:true
+    })
+    api.http('/flute/api/skuBuy', 
+        {
+          token: app.globalData.token,
+          totalFee: that.data.infoData.totalFee,
+          skuCode:that.data.infoData.skuCode,
+          skuName:that.data.infoData.skuName
+          },
+      'POST', 
+      true).then(res => {
+        if (res.result == 0) {
+            let params = res.data
+            that.toWxPay(params)
         }else{
           wx.showToast({
-            title: '网络错误',
-            icon: 'error',
-            duration: 2000
+            title: "支付失败",icon:'none',duration: 1000
+          })
+          that.setData({
+            isLoading:false
           })
         }
+    })
+  },
+  toWxPay(data) {//调起微信支付
+    var that=this
+    wx.requestPayment({
+      timeStamp: data.timeStamp,
+      nonceStr: data.nonceStr,
+      package: data.package,
+      signType: 'MD5',
+      paySign: data.sign,
+      success(res) {//支付成功跳转我的订单页面
+        wx.showToast({
+          title: "支付成功!", duration: 1000,
+          success: res => {
+            setTimeout(function () {
+              wx.navigateTo({
+                url: '../myOrder/myOrder'
+              })
+            }, 1000);
+          }
+        })
+      },
+      fail(res) {
+        wx.showToast({
+          title: "支付失败",icon:'none',duration: 1000
+        })
       }
     })
   },

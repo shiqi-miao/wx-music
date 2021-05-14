@@ -1,4 +1,0 @@
-<view class="flex-center-Y" style="position:fixed;top:{{top}}px;left:40rpx" bindtap="back">
-  <van-icon name="arrow-left" style="font-size:32rpx;color:#ffffff;margin-top:3px"/>
-  <view style="color:#ffffff;font-size:32rpx">{{title}}</view>
-</view>

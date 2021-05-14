@@ -34,31 +34,25 @@
                 <button wx:if="{{hasUserInfo==false}}" bindtap="getUserProfile" style="font-size:28rpx">您还未登录~</button>
                 <view class="name" wx:else>
                     {{vipData.nickName}}
-                    <view wx:if="{{vipData.gmtCreated}}" style="margin-top:10rpx;color:rgba(45, 135, 156, 1);font-size:24rpx">{{vipData.gmtCreated}}到期</view>
-                    <view wx:else style="margin-top:10rpx;color:rgba(45, 135, 156, 1);font-size:24rpx">您还不是会员哦~</view>
+                    <view wx:if="{{vipData.memberGrade==1000}}" style="margin-top:10rpx;color:rgba(45, 135, 156, 1);font-size:24rpx">开通会员,享更多权益~</view>
+                    <view wx:else style="margin-top:10rpx;color:rgba(45, 135, 156, 1);font-size:24rpx">{{vipData.gmtCreated}}到期</view>
                 </view>
         </view>
         <button class="couponBtn" wx:if="{{hasUserInfo==false}}" bindtap="getUserProfile" style="font-size:28rpx;margin:0">去登录</button>
         <view wx:else>
-                <view wx:if="{{vipData.gmtCreated}}" class="couponBtn" bindtap="toVip">续费会员</view>
-                <view wx:else class="couponBtn" bindtap="toVip">开通会员</view>
+                <view wx:if="{{vipData.memberGrade==1000}}" class="couponBtn" bindtap="toVip">开通会员</view>
+                <view wx:else class="couponBtn" bindtap="toVip">会员中心</view>
         </view>
     </view>
     <view class="flex-center-Y" style="padding-top:30rpx;background-color: rgba(249, 249, 249, 1);">
         <view class="goods">
-            <view class="over" wx:if="{{showSearch}}"></view>
-            <van-popup show="{{ showSearch }}" position="top" custom-style="height: 264rpx;top:590rpx" overlay-style="background:transparent" bind:close="search" >
-                <view class="searchBox">
-                    <view class="search-l">
-                        <input placeholder="搜索歌曲名称" class="search-int" value="{{inputValue}}" bindinput="getInput"></input>
-                        <image class="search-img1" src="../../images/homeIndex/search.png"></image>
-                        <image class="search-img2" src="../../images/homeIndex/clear.png" catchtap="clear"></image>
-                        <view class="search-int1" catchtap="clear"></view>
-                    </view>
+            <view class="searchBox">
+                <view class="search-l">
+                    <input placeholder="搜索歌曲名称" class="search-int" value="{{inputValue}}" bindinput="getInput"></input>
+                    <image class="search-img1" src="../../images/homeIndex/search.png"></image>
+                    <image wx:for="{{inputValue}}" class="search-img2" src="../../images/homeIndex/clear.png" catchtap="clear"></image>
+                    <view class="search-int1" catchtap="clear"></view>
                 </view>
-            </van-popup>
-            <view class="img" bindtap="toSearch">
-                <image src="../../images/homeIndex/search.png" />
             </view>
             <view class="tabs">
                 <view class="left">
@@ -68,7 +62,7 @@
                     </van-dropdown-menu>
                 </view>
             </view>
-            <scroll-view scroll-y="true" class="container" style="width:680rpx;height: calc(100vh - 660rpx);overflow: scroll;" bindscrolltolower="bindscrolltolower">
+            <scroll-view scroll-y="true" class="container" style="width:680rpx;height: calc(100vh - 760rpx);overflow: scroll;" bindscrolltolower="bindscrolltolower">
                 <view wx:for="{{goodsList}}" wx:key="index" class="article content">
                     <button class="mask" wx:if="{{hasUserInfo==false}}" bindtap="getUserProfile"></button>
                     <view class="bottom" bindtap="toDetail" data-skucode="{{item.skuCode}}">
