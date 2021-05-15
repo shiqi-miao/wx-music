@@ -1,16 +1,16 @@
 /* pages/myOrder/myOrder.wxss */
-.container{padding-bottom:200rpx;}
+.container{margin-top: 110rpx;padding-bottom:200rpx;}
 .tab{margin-top:30rpx;width:100%;height:74rpx;position:fixed;top:0;left:0;display: flex;align-items: flex-end;color: rgba(153, 153, 153, 1);font-size: 28rpx;background: #fff;}
 .tab .active{color: rgba(51, 51, 51, 1);font-weight: bold;font-size: 28rpx;position: relative;}
 .tab .active:after{content: "";display: block;height: 8rpx;width: 40rpx;border-radius:4rpx;background: #2D879C;position: absolute; left: 50%;transform: translateX(-50%);bottom: -30rpx}
 .box{background: #fff;margin-bottom: 30rpx;border-radius: 20rpx;padding:30rpx;position: relative;}
 .box .payTime{position: absolute;top: 88rpx;right: 30rpx;color: #CA3434;font-size: 24rpx;}
-.box .top{color: #999999;font-size: 28rpx;margin-bottom: 30rpx;}
+.box .top{color: #999999;font-size: 28rpx;margin-bottom: 48rpx;}
 .box .top .lineImg{width: 50rpx;height: 50rpx;margin-right: 20rpx;}
 .box .top .status{color: #E6AA4D;}
 .box .line{margin-bottom: 10rpx;}
 .box .line image{width:120rpx;height: 120rpx;margin-right: 20rpx;border-radius: 12rpx;}
-.box .line .name,.box .line .name1{width:400rpx;font-size: 28rpx;color: #333;}
+.box .line .name,.box .line .name1{width:400rpx;margin-bottom: 30rpx;font-size: 28rpx;color: #333;}
 .box .line .name1{font-size: 24rpx;color: #999999;}
 .box .line .price{font-size: 28rpx;color: #2D879C;font-weight: bold;}
 .box .line .price .num{color: #999;text-align: right;font-weight: 400;}

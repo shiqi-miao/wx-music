@@ -19,7 +19,7 @@
   <view class="flex-center-Y" style="flex-wrap:wrap">
     <view wx:for="{{myData}}" wx:key="index" class="{{item.isActive ? 'active bottomBox' : 'bottomBox'}}" data-index="{{index}}" bindtap="selectVip">
       <view class="title">{{item.gradeName}}</view>
-      <view class="date">{{item.cycleTerm}}年</view>
+      <view class="date">期限: {{item.cycleTerm}}年</view>
       <view class="tip">这是会员权益介绍这是介绍</view>
       <view class="price">￥{{item.totalFee}}</view>
     </view>
