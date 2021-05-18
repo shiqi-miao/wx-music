@@ -26,7 +26,8 @@ Page({
     userInfo:{},
     min:0,
     mia:10,
-    loading:false
+    loading:false,
+    isLoading:false
   },
   showLogin(){//弹出登录弹窗
     this.setData({
@@ -147,32 +148,32 @@ Page({
               })
               that.setData({
                 list: that.data.list,
-                totalCount: res.data.totalCount,
-                totalPage: Math.ceil(res.data.totalCount / that.data.params.pageRow)
+                totalCount: res.data.count,
+                totalPage: Math.ceil(res.data.count / that.data.params.pageRow)
               })
             }else if(that.data.activeTab=='1'){
-              that.data.listB=that.data.listB.concat(res.data.shoppingOrderInfoList)
+              that.data.listB=that.data.listB.concat(res.data.list)
               that.setData({
                 listB: that.data.listB,
-                totalCount: res.data.totalCount,
-                totalPage: Math.ceil(res.data.totalCount / that.data.params.pageRow)
+                totalCount: res.data.count,
+                totalPage: Math.ceil(res.data.count / that.data.params.pageRow)
               })
             }else if(that.data.activeTab=='2'){
-              that.data.listC=that.data.listC.concat(res.data.shoppingOrderInfoList)
+              that.data.listC=that.data.listC.concat(res.data.list)
               that.setData({
                 listC: that.data.listC,
-                totalCount: res.data.totalCount,
-                totalPage: Math.ceil(res.data.totalCount / that.data.params.pageRow)
+                totalCount: res.data.count,
+                totalPage: Math.ceil(res.data.count / that.data.params.pageRow)
               })
             }else if(that.data.activeTab=='3'){
-              that.data.listD=that.data.listD.concat(res.data.shoppingOrderInfoList)
+              that.data.listD=that.data.listD.concat(res.data.list)
               that.setData({
                 listD: that.data.listD,
-                totalCount: res.data.totalCount,
-                totalPage: Math.ceil(res.data.totalCount / that.data.params.pageRow)
+                totalCount: res.data.count,
+                totalPage: Math.ceil(res.data.count / that.data.params.pageRow)
               })
             }else if(that.data.activeTab=='4'){
-              that.data.listE=that.data.listE.concat(res.data.shoppingOrderInfoList)
+              that.data.listE=that.data.listE.concat(res.data.list)
               that.data.listE.forEach(item=>{
                 if(item.countDown){//倒计时
                   item.min=parseInt(Number(item.countDown)/1000/60)
@@ -202,17 +203,109 @@ Page({
               })
               that.setData({
                 listE: that.data.listE,
-                totalCount: res.data.totalCount,
-                totalPage: Math.ceil(res.data.totalCount / that.data.params.pageRow)
+                totalCount: res.data.count,
+                totalPage: Math.ceil(res.data.count / that.data.params.pageRow)
               })
             }else if(that.data.activeTab=='5'){
-              that.data.listF=that.data.listF.concat(res.data.shoppingOrderInfoList)
+              that.data.listF=that.data.listF.concat(res.data.list)
               that.setData({
                 listF: that.data.listF,
-                totalCount: res.data.totalCount,
-                totalPage: Math.ceil(res.data.totalCount / that.data.params.pageRow)
+                totalCount: res.data.count,
+                totalPage: Math.ceil(res.data.count / that.data.params.pageRow)
               })
             }
+      }
+    })
+  },
+  cancelPay(e){//取消订单
+    var that=this
+    var index=e.currentTarget.dataset.index
+    wx.showModal({
+      title: '是否确认取消订单?',
+      success: function (res) {
+        if (res.confirm) {
+          api.http('/flute/api/cancel', 
+            {
+              token: app.globalData.token,
+              orderCode:e.currentTarget.dataset.ordercode
+              },
+          'POST', 
+          true).then(res => {
+            if (res.result == 0) {
+              that.data.list[index].isPay='-1'
+              that.setData({
+                list:that.data.list
+              })
+            }else{
+            }
+        })
+        } else {
+        }
+      }
+    })
+  },
+  payNow(e){//重新支付
+    var that=this
+    var index=e.currentTarget.dataset.index
+    var totalFee=e.currentTarget.dataset.totalfee
+    var orderCode=e.currentTarget.dataset.ordercode
+    var nameDesc=e.currentTarget.dataset.namedesc
+    that.setData({
+      isLoading:true
+    })
+    api.http('/flute/api/tryPay', 
+        {
+          token: app.globalData.token,
+          orderCode:orderCode,
+          totalFee:totalFee,
+          name:nameDesc
+          },
+      'POST', 
+      true).then(res => {
+        if (res.result == 0) {
+            let params = res.data
+            params.index=index
+            that.toWxPay(params)
+        }else{
+          wx.showToast({
+            title: "支付失败",icon:'none',duration: 1000
+          })
+          that.setData({
+            isLoading:false
+          })
+        }
+    }).catch(()=>{
+      that.setData({
+        isLoading:false
+      })
+    })
+  },
+  toWxPay(data) {//调起微信支付
+    var that=this
+    wx.requestPayment({
+      timeStamp: data.timeStamp,
+      nonceStr: data.nonceStr,
+      package: data.package,
+      signType: 'MD5',
+      paySign: data.sign,
+      success(res) {
+        wx.showToast({
+          title: "支付成功!", duration: 1000,
+          success: res => {
+            that.data.list[index].isPay='1'
+            that.setData({
+              list:that.data.list
+            })
+          }
+        })
+      },
+      fail(res) {
+        wx.showToast({
+          title: "支付失败",icon:'none',duration: 1000
+        })
+        that.setData({
+          isLoading:false
+        })
       }
     })
   },

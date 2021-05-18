@@ -229,6 +229,7 @@ swiper,
 
 .article {
     width: 690rpx;
+    height: 180rpx;
     background: #ffffff;
     padding: 30rpx;
     border-radius: 24rpx;
@@ -263,6 +264,7 @@ swiper,
 }
 
 .article .bottom .title {
+    line-height: 1;
     font-size: 28rpx;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -277,8 +279,9 @@ swiper,
     font-size: 24rpx;
     color: #999999;
     margin-right: 10rpx;
-    margin-top: 30rpx;
+    margin-top: 20rpx;
     line-height: 1;
+    width:500rpx
 }
 
 .article .bottom .date {
@@ -340,6 +343,12 @@ swiper,
     width: 24rpx;
     height: 20rpx;
     margin-right: 2rpx;
+}
+
+.article .bottom image {
+    width: 100rpx;
+    height: 100rpx;
+    margin-right: 20rpx;
 }
 
 .toButton::after {
@@ -501,6 +510,17 @@ swiper,
     justify-content: flex-start;
 }
 
+.goods van-dropdown-menu.one .van-dropdown-menu>.van-dropdown-menu__item:nth-child(1)>.van-dropdown-menu__title{
+    color: rgba(45, 135, 156, 1);
+}
+
+.goods van-dropdown-menu.two .van-dropdown-menu>.van-dropdown-menu__item:nth-child(2)>.van-dropdown-menu__title{
+    color: rgba(45, 135, 156, 1);
+}
+
+.goods van-dropdown-menu.all .van-dropdown-menu .van-dropdown-menu__title{
+    color: rgba(45, 135, 156, 1);
+}
 
 .goods .img {
     transform: translateY(-40rpx);
@@ -628,6 +648,17 @@ swiper,
     transform: translate(0,-50%);
     z-index: 20
   }
+
+  .search-img2::after{
+        content: "";
+        display: block;
+        height: 70rpx;
+        width: 100rpx;
+        position: absolute;
+        top: -60%;
+        left: -300%;
+        z-index: 100;
+}
 
   .functionBox{
       width: 100rpx;

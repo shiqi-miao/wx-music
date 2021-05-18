@@ -17,7 +17,6 @@
       </view>
       <view class="top flex-center-Y justify-between">
         <view class="flex-center-Y">
-          <image class="lineImg" src="{{item.isPay?'../../images/my/online.png':'../../images/my/underline.png'}}"></image>
           {{item.gmtCreated}}
         </view>
         <view class="status" wx:if="{{!item.isPay}}">支付成功</view>
@@ -27,129 +26,28 @@
         <view class="status" wx:if="{{item.isPay=='1'}}">已完成</view>
         <view class="status" wx:if="{{item.isPay=='-1'}}">已取消</view>
       </view>
-      <view wx:if="{{item.orderDetailsList.length==1}}">
-        <view class="line flex-center-Y justify-between" wx:for="{{item.orderDetailsList}}" wx:for-item="info">
-          <view class="flex-center-S">
-            <image src="{{info.skuPicture}}"></image>
-            <view>
-              <view class="name limit-ellipsis">{{info.skuName}}</view>
-              <view class="name name1 limit-ellipsis">{{info.detail}}</view>
-            </view>
-          </view>
-          <view class="price">
-            <view class="num">共{{item.skuNum}}件</view>
-          </view>
-        </view>
-      </view>
-      <view wx:else>
+      <view>
         <view class="line flex-center-Y justify-between">
-          <view class="left">
-            <scroll-view scroll-x="true" class="tab-h" scroll-left="{{scrollLeft}}">
-                <image src="{{info.skuPicture}}" wx:for="{{item.orderDetailsList}}" wx:for-item='info' wx:key="index" class="goodsImg"></image>
-            </scroll-view>
-          </view>
-          <view class="price">
-            <view class="num">共{{item.skuNum}}件</view>
+          <view class="flex-center-S">
+            <image src="{{item.orderType=='单曲购买' ? '../../images/my/music.png' : '../../images/my/vip.png'}}"></image>
+            <view>
+              <view class="name limit-ellipsis">{{item.skuName || item.nameDesc}}</view>
+              <view class="name name1 limit-ellipsis">{{item.orderType}}</view>
+            </view>
           </view>
         </view>
       </view>
       <view class="bottom flex-center-Y justify-between">
-        <text></text>
+        <view class="flex-center-Y">
+          <view wx:if="{{item.isPay=='0'}}" class="payBtn1" bindtap="cancelPay" data-index="{{index}}" data-ordercode="{{item.orderCode}}">取消订单</view>
+          <view wx:if="{{item.isPay=='0' && !isLoading}}" class="payBtn" bindtap="payNow" data-index="{{index}}" data-totalfee="{{item.payPrice}}" data-ordercode="{{item.orderCode}}" data-namedesc="{{item.nameDesc}}">立即支付</view>
+          <button  wx:if="{{item.isPay=='0' && isLoading}}" class="payBtn" data-index="{{index}}" data-totalfee="{{item.payPrice}}" data-ordercode="{{item.orderCode}}" loading loading-type="spinner"></button>
+        </view>
         <text>合计： <text class="bold" style="color:#333333"> ¥{{item.payPrice}}</text></text>
       </view>
     </view>
     <view wx:if="{{list.length==0 && !loading}}" style="text-align:center;color:#999;font-size:28rpx;margin-top:20rpx">
-      <image style="width:200rpx;height:200rpx;margin-top:100rpx;" src="../../images/shop/address.png"></image>
-      <view>暂无订单~</view> 
-    </view>
-  </view>
-  <view class="container" wx:if="{{activeTab=='1'}}">
-    <view class="box" wx:for="{{listB}}" wx:key="orderCode" data-ordercode="{{item.orderCode}}" data-status="{{item.isPay}}" >
-      <view class="top flex-center-Y justify-between">
-        <view class="flex-center-Y">
-          <image class="lineImg" src="{{item.isPay?'../../images/my/online.png':'../../images/my/underline.png'}}"></image>
-          {{item.gmtCreated}}
-        </view>
-        <view class="status">待发货</view>
-      </view>
-      <view wx:if="{{item.orderDetailsList.length==1}}">
-        <view class="line flex-center-Y justify-between" wx:for="{{item.orderDetailsList}}" wx:for-item="info">
-          <view class="flex-center-S">
-            <image src="{{info.skuPicture}}"></image>
-            <view>
-              <view class="name limit-ellipsis">{{info.skuName}}</view>
-              <view class="name name1 limit-ellipsis">{{info.detail}}</view>
-            </view>
-          </view>
-          <view class="price">
-            <view class="num">共{{item.skuNum}}件</view>
-          </view>
-        </view>
-      </view>
-      <view wx:else>
-        <view class="line flex-center-Y justify-between">
-          <view class="left">
-            <scroll-view scroll-x="true" class="tab-h" scroll-left="{{scrollLeft}}">
-                <image src="{{info.skuPicture}}" wx:for="{{item.orderDetailsList}}" wx:for-item='info' wx:key="index" class="goodsImg"></image>
-            </scroll-view>
-          </view>
-          <view class="price">
-            <view class="num">共{{item.skuNum}}件</view>
-          </view>
-        </view>
-      </view>
-      <view class="bottom flex-center-Y justify-between">
-        <text></text>
-        <text>合计： <text class="bold" style="color:#333333"> ¥{{item.payPrice}}</text></text>
-      </view>
-    </view>
-    <view wx:if="{{listB.length==0 && !loading}}" style="text-align:center;color:#999;font-size:28rpx;margin-top:20rpx">
-      <image style="width:200rpx;height:200rpx;margin-top:100rpx;" src="../../images/shop/address.png"></image>
-      <view>暂无订单~</view> 
-    </view>
-  </view>
-  <view class="container" wx:if="{{activeTab=='2'}}">
-    <view class="box" wx:for="{{listC}}" wx:key="orderCode" data-ordercode="{{item.orderCode}}" data-status="{{item.isPay}}" >
-      <view class="top flex-center-Y justify-between">
-        <view class="flex-center-Y">
-          <image class="lineImg" src="{{item.isPay?'../../images/my/online.png':'../../images/my/underline.png'}}"></image>
-          {{item.gmtCreated}}
-        </view>
-        <view class="status">已发货</view>
-      </view>
-      <view wx:if="{{item.orderDetailsList.length==1}}">
-        <view class="line flex-center-Y justify-between" wx:for="{{item.orderDetailsList}}" wx:for-item="info">
-          <view class="flex-center-S">
-            <image src="{{info.skuPicture}}"></image>
-            <view>
-              <view class="name limit-ellipsis">{{info.skuName}}</view>
-              <view class="name name1 limit-ellipsis">{{info.detail}}</view>
-            </view>
-          </view>
-          <view class="price">
-            <view class="num">共{{item.skuNum}}件</view>
-          </view>
-        </view>
-      </view>
-      <view wx:else>
-        <view class="line flex-center-Y justify-between">
-          <view class="left">
-            <scroll-view scroll-x="true" class="tab-h" scroll-left="{{scrollLeft}}">
-                <image src="{{info.skuPicture}}" wx:for="{{item.orderDetailsList}}" wx:for-item='info' wx:key="index" class="goodsImg"></image>
-            </scroll-view>
-          </view>
-          <view class="price">
-            <view class="num">共{{item.skuNum}}件</view>
-          </view>
-        </view>
-      </view>
-      <view class="bottom flex-center-Y justify-between">
-        <text></text>
-        <text>合计： <text class="bold" style="color:#333333"> ¥{{item.payPrice}}</text></text>
-      </view>
-    </view>
-    <view wx:if="{{listC.length==0 && !loading}}" style="text-align:center;color:#999;font-size:28rpx;margin-top:20rpx">
-      <image style="width:200rpx;height:200rpx;margin-top:100rpx;" src="../../images/shop/address.png"></image>
+      <!-- <image style="width:200rpx;height:200rpx;margin-top:100rpx;" src="../../images/shop/address.png"></image> -->
       <view>暂无订单~</view> 
     </view>
   </view>
@@ -157,34 +55,18 @@
     <view class="box" wx:for="{{listD}}" wx:key="orderCode" data-ordercode="{{item.orderCode}}" data-status="{{item.isPay}}" >
       <view class="top flex-center-Y justify-between">
         <view class="flex-center-Y">
-          <image class="lineImg" src="{{item.isPay?'../../images/my/online.png':'../../images/my/underline.png'}}"></image>
           {{item.gmtCreated}}
         </view>
         <view class="status">已完成</view>
       </view>
-      <view wx:if="{{item.orderDetailsList.length==1}}">
-        <view class="line flex-center-Y justify-between" wx:for="{{item.orderDetailsList}}" wx:for-item="info">
-          <view class="flex-center-S">
-            <image src="{{info.skuPicture}}"></image>
-            <view>
-              <view class="name limit-ellipsis">{{info.skuName}}</view>
-              <view class="name name1 limit-ellipsis">{{info.detail}}</view>
-            </view>
-          </view>
-          <view class="price">
-            <view class="num">共{{item.skuNum}}件</view>
-          </view>
-        </view>
-      </view>
-      <view wx:else>
+      <view>
         <view class="line flex-center-Y justify-between">
-          <view class="left">
-            <scroll-view scroll-x="true" class="tab-h" scroll-left="{{scrollLeft}}">
-                <image src="{{info.skuPicture}}" wx:for="{{item.orderDetailsList}}" wx:for-item='info' wx:key="index" class="goodsImg"></image>
-            </scroll-view>
-          </view>
-          <view class="price">
-            <view class="num">共{{item.skuNum}}件</view>
+          <view class="flex-center-S">
+            <image src="{{item.orderType=='单曲购买' ? '../../images/my/music.png' : '../../images/my/vip.png'}}"></image>
+            <view>
+              <view class="name limit-ellipsis">{{item.skuName || item.nameDesc}}</view>
+              <view class="name name1 limit-ellipsis">{{item.orderType}}</view>
+            </view>
           </view>
         </view>
       </view>
@@ -194,7 +76,7 @@
       </view>
     </view>
     <view wx:if="{{listD.length==0 && !loading}}" style="text-align:center;color:#999;font-size:28rpx;margin-top:20rpx">
-      <image style="width:200rpx;height:200rpx;margin-top:100rpx;" src="../../images/shop/address.png"></image>
+      <!-- <image style="width:200rpx;height:200rpx;margin-top:100rpx;" src="../../images/shop/address.png"></image> -->
       <view>暂无订单~</view> 
     </view>
   </view>
@@ -205,44 +87,32 @@
       </view>
       <view class="top flex-center-Y justify-between">
         <view class="flex-center-Y">
-          <image class="lineImg" src="{{item.isPay?'../../images/my/online.png':'../../images/my/underline.png'}}"></image>
           {{item.gmtCreated}}
         </view>
         <view class="status">待付款</view>
       </view>
-      <view wx:if="{{item.orderDetailsList.length==1}}">
-        <view class="line flex-center-Y justify-between" wx:for="{{item.orderDetailsList}}" wx:for-item="info">
-          <view class="flex-center-S">
-            <image src="{{info.skuPicture}}"></image>
-            <view>
-              <view class="name limit-ellipsis">{{info.skuName}}</view>
-              <view class="name name1 limit-ellipsis">{{info.detail}}</view>
-            </view>
-          </view>
-          <view class="price">
-            <view class="num">共{{item.skuNum}}件</view>
-          </view>
-        </view>
-      </view>
-      <view wx:else>
+      <view>
         <view class="line flex-center-Y justify-between">
-          <view class="left">
-            <scroll-view scroll-x="true" class="tab-h" scroll-left="{{scrollLeft}}">
-                <image src="{{info.skuPicture}}" wx:for="{{item.orderDetailsList}}" wx:for-item='info' wx:key="index" class="goodsImg"></image>
-            </scroll-view>
-          </view>
-          <view class="price">
-            <view class="num">共{{item.skuNum}}件</view>
+          <view class="flex-center-S">
+            <image src="{{item.orderType=='单曲购买' ? '../../images/my/music.png' : '../../images/my/vip.png'}}"></image>
+            <view>
+              <view class="name limit-ellipsis">{{item.skuName || item.nameDesc}}</view>
+              <view class="name name1 limit-ellipsis">{{item.orderType}}</view>
+            </view>
           </view>
         </view>
       </view>
       <view class="bottom flex-center-Y justify-between">
-        <text></text>
+        <view class="flex-center-Y">
+          <view wx:if="{{item.isPay=='0'}}" class="payBtn1" bindtap="cancelPay" data-index="{{index}}" data-ordercode="{{item.orderCode}}">取消订单</view>
+          <view wx:if="{{item.isPay=='0' && !isLoading}}" class="payBtn" bindtap="payNow" data-index="{{index}}" data-totalfee="{{item.payPrice}}" data-ordercode="{{item.orderCode}}" data-namedesc="{{item.nameDesc}}">立即支付</view>
+          <button  wx:if="{{item.isPay=='0' && isLoading}}" class="payBtn" data-index="{{index}}" data-totalfee="{{item.payPrice}}" data-ordercode="{{item.orderCode}}" loading loading-type="spinner"></button>
+        </view>
         <text>合计： <text class="bold" style="color:#333333"> ¥{{item.payPrice}}</text></text>
       </view>
     </view>
     <view wx:if="{{listE.length==0 && !loading}}" style="text-align:center;color:#999;font-size:28rpx;margin-top:20rpx">
-      <image style="width:200rpx;height:200rpx;margin-top:100rpx;" src="../../images/shop/address.png"></image>
+      <!-- <image style="width:200rpx;height:200rpx;margin-top:100rpx;" src="../../images/shop/address.png"></image> -->
       <view>暂无订单~</view> 
     </view>
   </view>
@@ -250,34 +120,18 @@
     <view class="box" wx:for="{{listF}}" wx:key="orderCode" data-ordercode="{{item.orderCode}}" data-status="{{item.isPay}}" >
       <view class="top flex-center-Y justify-between">
         <view class="flex-center-Y">
-          <image class="lineImg" src="{{item.isPay?'../../images/my/online.png':'../../images/my/underline.png'}}"></image>
           {{item.gmtCreated}}
         </view>
         <view class="status">已取消</view>
       </view>
-      <view wx:if="{{item.orderDetailsList.length==1}}">
-        <view class="line flex-center-Y justify-between" wx:for="{{item.orderDetailsList}}" wx:for-item="info">
-          <view class="flex-center-S">
-            <image src="{{info.skuPicture}}"></image>
-            <view>
-              <view class="name limit-ellipsis">{{info.skuName}}</view>
-              <view class="name name1 limit-ellipsis">{{info.detail}}</view>
-            </view>
-          </view>
-          <view class="price">
-            <view class="num">共{{item.skuNum}}件</view>
-          </view>
-        </view>
-      </view>
-      <view wx:else>
+      <view>
         <view class="line flex-center-Y justify-between">
-          <view class="left">
-            <scroll-view scroll-x="true" class="tab-h" scroll-left="{{scrollLeft}}">
-                <image src="{{info.skuPicture}}" wx:for="{{item.orderDetailsList}}" wx:for-item='info' wx:key="index" class="goodsImg"></image>
-            </scroll-view>
-          </view>
-          <view class="price">
-            <view class="num">共{{item.skuNum}}件</view>
+          <view class="flex-center-S">
+            <image src="{{item.orderType=='单曲购买' ? '../../images/my/music.png' : '../../images/my/vip.png'}}"></image>
+            <view>
+              <view class="name limit-ellipsis">{{item.skuName || item.nameDesc}}</view>
+              <view class="name name1 limit-ellipsis">{{item.orderType}}</view>
+            </view>
           </view>
         </view>
       </view>
@@ -287,7 +141,7 @@
       </view>
     </view>
     <view wx:if="{{listF.length==0 && !loading}}" style="text-align:center;color:#999;font-size:28rpx;margin-top:20rpx">
-      <image style="width:200rpx;height:200rpx;margin-top:100rpx;" src="../../images/shop/address.png"></image>
+      <!-- <image style="width:200rpx;height:200rpx;margin-top:100rpx;" src="../../images/shop/address.png"></image> -->
       <view>暂无订单~</view> 
     </view>
   </view>

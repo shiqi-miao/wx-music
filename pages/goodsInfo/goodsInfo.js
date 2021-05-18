@@ -14,19 +14,10 @@ Page({
     hasUserInfo: false,
     showModal: false,//登录弹窗
     skuShowPictureList: [
-      "https://wx.qlogo.cn/mmopen/vi_32/DYAIOgq83eq8xaPibYS3TuaGvIrEmavRr5FCBibO3ibU2iaXu5yt20MtYwia4UD5ofrvpqHrnKWiahGOLtuGKyDYYEEA/132",
-      "https://wx.qlogo.cn/mmopen/vi_32/DYAIOgq83eq8xaPibYS3TuaGvIrEmavRr5FCBibO3ibU2iaXu5yt20MtYwia4UD5ofrvpqHrnKWiahGOLtuGKyDYYEEA/132"
+      // "https://wx.qlogo.cn/mmopen/vi_32/DYAIOgq83eq8xaPibYS3TuaGvIrEmavRr5FCBibO3ibU2iaXu5yt20MtYwia4UD5ofrvpqHrnKWiahGOLtuGKyDYYEEA/132",
+      // "https://wx.qlogo.cn/mmopen/vi_32/DYAIOgq83eq8xaPibYS3TuaGvIrEmavRr5FCBibO3ibU2iaXu5yt20MtYwia4UD5ofrvpqHrnKWiahGOLtuGKyDYYEEA/132"
     ],
-    infoData:{
-      skuName: "测试sku100g",
-      discountRate: 5.0,
-      stockNumber: 10,
-      salePrice: 0.04,
-      soldNumber: 9,
-      discountPrice: 0.02,
-      procurementPrice: 0.01,
-      skuCode: "001"
-    },
+    infoData:{},
     skuCode:'',
     showTop:false,
     loading:false,
@@ -382,7 +373,7 @@ Page({
     api.http('/flute/api/skuBuy', 
         {
           token: app.globalData.token,
-          totalFee: that.data.infoData.totalFee,
+          totalFee: that.data.infoData.salePrice,
           skuCode:that.data.infoData.skuCode,
           skuName:that.data.infoData.skuName
           },
@@ -413,11 +404,10 @@ Page({
         wx.showToast({
           title: "支付成功!", duration: 1000,
           success: res => {
-            setTimeout(function () {
-              wx.navigateTo({
-                url: '../myOrder/myOrder'
-              })
-            }, 1000);
+            that.setData({
+              showPopup:false
+            })
+            that.getData()
           }
         })
       },

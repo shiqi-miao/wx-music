@@ -10,7 +10,16 @@ Page({
     myData:"",
     vipData:{},
     selectData:"",
-    isLoading:false
+    isLoading:false,
+    showModal: false,//登录弹窗
+    showRoleModal:false,//微信授权蒙板
+    userInfo: {},
+    hasUserInfo: false,
+  },
+  showLogin(){//弹出登录弹窗
+    this.setData({
+      showModal:true
+    })
   },
   getData() {
     var that = this
@@ -102,28 +111,25 @@ Page({
       signType: 'MD5',
       paySign: data.sign,
       success(res) {//支付成功跳转我的订单页面
+        that.reflashData()
         wx.navigateBack({
           delta: -1,
         })
-        // wx.showToast({
-        //   title: "支付成功!", duration: 1000,
-        //   success: res => {
-        //     setTimeout(function () {
-        //       wx.navigateTo({
-        //         url: '../myOrder/myOrder'
-        //       })
-        //     }, 1000);
-        //   }
-        // })
       },
       fail(res) {
         wx.showToast({
           title: "支付失败",icon:'none',duration: 1000
         })
+        that.setData({
+          isLoading:false
+        })
       }
     })
   },
   reflashData(){//登录成功后刷新数据
+    this.setData({
+      hasUserInfo: true
+    })
     this.getData()
   },
   /**
@@ -144,7 +150,23 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-      this.getData()
+        if (app.globalData.userInfo) {
+          this.setData({
+            showRoleModal: false,
+          })
+          if (!app.globalData.token) {//如果没登录弹登录弹窗
+            this.showLogin()
+          }else{
+            this.setData({
+              hasUserInfo: true
+            })
+            this.getData()
+          }
+        }else{
+          this.setData({
+            showRoleModal: true
+          })
+        }
       
     
   },

@@ -10,7 +10,7 @@ Page({
     data: {
         userInfo: {},
         hasUserInfo: false,//是否已经授权并且登录
-        authList: [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}],
+        authList: [],
         goodsList: [], //当前分类的商品列表
         imgUrls: [],
         currentSwiper: 0,
@@ -32,8 +32,8 @@ Page({
           ],
           option2: [
             { text: '全部歌曲', value: '' },
-            { text: '普通歌曲', value: 'N' },
-            { text: '精品歌曲', value: 'Y' }
+            { text: '普通歌曲', value: 'Y' },
+            { text: '精品歌曲', value: 'N' }
           ],
           typeId: '',
           value2: '',
@@ -111,10 +111,8 @@ Page({
     toLink(e) {
         var urlType = e.currentTarget.dataset.urltype
         var jumpUrl = e.currentTarget.dataset.jumpurl
-            // console.log(urlType,jumpUrl)
         if (urlType == 0) { //内链接
-            if (jumpUrl != '/homeIndex/homeIndex' && jumpUrl != '/myOrder/myOrder' && jumpUrl != '/cart/cart' && jumpUrl != '/my/my') {
-                //  console.log('..'+jumpUrl)
+            if (jumpUrl != '/homeIndex/homeIndex') {
                 wx.navigateTo({
                     url: `..${jumpUrl}`
                 })

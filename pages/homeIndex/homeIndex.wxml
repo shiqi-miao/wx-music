@@ -33,7 +33,10 @@
                 </view>
                 <button wx:if="{{hasUserInfo==false}}" bindtap="getUserProfile" style="font-size:28rpx">您还未登录~</button>
                 <view class="name" wx:else>
-                    {{vipData.nickName}} <text style="font-size:24rpx;color:#eab234">{{vipData.memberGrade==1000 ? '' : vipData.gradeName}}</text>
+                    <view class="flex-center-Y">
+                        <view class="limit-ellipsis" style="max-width:230rpx;">{{vipData.nickName}}</view> 
+                        <text style="font-size:24rpx;color:#eab234">{{vipData.memberGrade==1000 ? '' : vipData.gradeName}}</text>
+                    </view>
                     <view wx:if="{{vipData.memberGrade==1000}}" style="margin-top:10rpx;color:rgba(45, 135, 156, 1);font-size:24rpx">开通会员,享更多权益~</view>
                     <view wx:else style="margin-top:10rpx;color:rgba(45, 135, 156, 1);font-size:24rpx">{{vipData.gmtCreated}}到期</view>
                 </view>
@@ -50,24 +53,30 @@
                 <view class="search-l">
                     <input placeholder="搜索歌曲名称" class="search-int" value="{{inputValue}}" bindinput="getInput"></input>
                     <image class="search-img1" src="../../images/homeIndex/search.png"></image>
-                    <image wx:for="{{inputValue}}" class="search-img2" src="../../images/homeIndex/clear.png" catchtap="clear"></image>
-                    <view class="search-int1" catchtap="clear"></view>
+                    <view class="search-img2" catchtap="clear">
+                        <image style="position:absolute;top:0" wx:if="{{inputValue}}" src="../../images/homeIndex/clear.png"></image>
+                    </view>
+                    <!-- <view class="search-int1" catchtap="clear"></view> -->
                 </view>
             </view>
             <view class="tabs">
                 <view class="left">
-                    <van-dropdown-menu active-color="#2d879c">
+                    <van-dropdown-menu active-color="#2d879c" class="{{typeId && value2?'all':(typeId && !value2?'one':(!typeId && value2?'two':''))}}">
                         <van-dropdown-item value="{{ typeId }}" options="{{ typeList }}" bindchange="getTypeId"/>
                         <van-dropdown-item value="{{ value2 }}" options="{{ option2 }}"  bindchange="getFeeType"/>
                     </van-dropdown-menu>
                 </view>
             </view>
-            <scroll-view scroll-y="true" class="container" style="width:680rpx;height: calc(100vh - 760rpx);overflow: scroll;" bindscrolltolower="bindscrolltolower">
+            <scroll-view scroll-y="true" class="container" style="width:100vw;height: calc(100vh - 760rpx);overflow: scroll;" bindscrolltolower="bindscrolltolower">
                 <view wx:for="{{goodsList}}" wx:key="index" class="article content">
                     <button class="mask" wx:if="{{hasUserInfo==false}}" bindtap="getUserProfile"></button>
-                    <view class="bottom" bindtap="toDetail" data-skucode="{{item.skuCode}}">
-                        <view class="title">{{item.skuName}}</view>
-                        <view class="detail flex-center-Y justify-between">{{item.gradeDesc}}<span>上传时间: {{item.gmtCreated}}</span></view>
+                    <view class="bottom flex-center-Y" bindtap="toDetail" data-skucode="{{item.skuCode}}">
+                        <image src="{{item.skuPicture}}" />
+                        <view>
+                            <view class="title">{{item.skuName}}</view>
+                            <view class="detail flex-center-Y justify-between"><view class="limit-ellipsis" style="width:350rpx">{{item.subtitleName}}</view></view>
+                        </view>
+                        <span class="detail" style="position:absolute;right:0rpx;bottom:0rpx;text-align:right;margin-right:0">{{item.gmtCreated}}</span>
                     </view>
                 </view>
             </scroll-view>
