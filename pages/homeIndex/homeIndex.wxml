@@ -67,7 +67,7 @@
                     </van-dropdown-menu>
                 </view>
             </view>
-            <scroll-view scroll-y="true" class="container" style="width:100vw;height: calc(100vh - 760rpx);overflow: scroll;" bindscrolltolower="bindscrolltolower">
+            <scroll-view scroll-y="true" class="container" style="width:calc(100vw - 60rpx);height: calc(100vh - 760rpx);overflow: scroll;" bindscrolltolower="bindscrolltolower">
                 <view wx:for="{{goodsList}}" wx:key="index" class="article content">
                     <button class="mask" wx:if="{{hasUserInfo==false}}" bindtap="getUserProfile"></button>
                     <view class="bottom flex-center-Y" bindtap="toDetail" data-skucode="{{item.skuCode}}">

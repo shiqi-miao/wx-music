@@ -221,7 +221,6 @@ Page({
       title: '保存图片',
       confirmText: '保存',
       confirmColor: '#2D879C',
-      showCancel:false,
       success: function (res) {
         if (res.confirm) {
           let url = e.currentTarget.dataset.url;
@@ -458,14 +457,13 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-
+    innerAudioContext.pause();
   },
 
   /**
