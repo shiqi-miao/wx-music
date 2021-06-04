@@ -96,7 +96,7 @@ App({
     // localApiUrl1: "http://192.168.1.171:8181",//shixian
     // localApiUrl1: "http://192.168.1.214:8181",//binge
     // localApiUrl1: "http://192.168.2.69:8181",//ziqiang
-    // localApiUrl1: "https://test.robooot.com:1443",//test
-    localApiUrl1: "http://121.43.114.209:8181",//prod
+    localApiUrl1: "https://m.zhudiba.com",//prod
+    // localApiUrl1: "http://121.43.114.209:8181",//prod
   }
 })

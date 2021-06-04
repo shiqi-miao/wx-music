@@ -59,7 +59,7 @@
 <view class="goodsInfo" style="display: flex; flex-direction: column;">
     <image bindlongpress="saveImg" wx:for="{{skuShowPictureList}}" wx:key="index" src="{{item.pictureUrl}}" data-url="{{item.pictureUrl}}" mode="widthFix"></image>
 </view>
-<view class="fix-bottom flex-center-Y justify-center" wx:if="{{audiolist[0].audiosrc}}">
+<view class="fix-bottom flex-center-Y justify-center" wx:if="{{audiolist[0].downsrc}}">
     <view wx:if="{{hasUserInfo==false}}" bindtap="getUserProfile" class="flex-center-Y">
             <image style="width:40rpx;height:40rpx" src="../../images/shop/downLoad.png"></image>
             <button class="btn-l">下载歌曲</button>

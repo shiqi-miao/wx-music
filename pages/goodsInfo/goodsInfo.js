@@ -27,7 +27,8 @@ Page({
     audiolist:[
       {
         // audiosrc:"https://www.aconvert.com/samples/sample.mp3",
-        audiosrc:""
+        audiosrc:"",
+        downsrc:""
       }
     ],
     isPlayAudio: false,
@@ -197,7 +198,8 @@ Page({
       'POST', 
       true).then(res => {
       if (res.result == 0) {
-          that.data.audiolist[0].audiosrc=res.data.details.mp3Url
+          that.data.audiolist[0].audiosrc=res.data.details.enjoyUrl//鉴赏音频
+          that.data.audiolist[0].downsrc=res.data.details.mp3Url//可供下载音频
           // that.data.audiolist[0].audiosrc="https://shanghai.qiuguanzhu.com/videos/ai_parse/2021/01/27/161173327013164.mp4"
           that.setData({
             skuShowPictureList:res.data.skuShowPictureList,
@@ -298,7 +300,8 @@ Page({
   copy(){
     var that=this
     wx.setClipboardData({
-      data: that.data.audiolist[0].audiosrc,
+      // data: that.data.audiolist[0].audiosrc,
+      data: that.data.audiolist[0].downsrc,
       success (res) {
         wx.getClipboardData({
           success (res) {
