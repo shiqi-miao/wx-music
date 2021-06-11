@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/homeIndex/homeIndex",
+    "pages/play/play",
     "pages/my/my",
     "pages/myOrder/myOrder",
     "pages/goodsInfo/goodsInfo",
@@ -45,7 +46,11 @@
     "chooseLocation": {
     "version": "1.0.5",
     "provider": "wx76a9a06e5b4e693e"
-    }
+    },
+    "live-player-plugin": {
+      "version": "1.3.0",
+      "provider": "wx2b03c6e691cd7370"
+  }
   },
   "useExtendedLib": {
     "weui": true
