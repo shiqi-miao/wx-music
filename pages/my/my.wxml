@@ -12,7 +12,7 @@
             <text style="font-size:28rpx;color:#f8c00a">{{vipData.memberGrade==1000 ? '' : vipData.gradeName}}</text>
           </view>
           <view wx:if="{{vipData.memberGrade==1000}}" style="margin-top:30rpx;color:#ffffff;font-size:28rpx">开通会员,享更多权益~</view>
-          <view wx:else style="margin-top:30rpx;color:#ffffff;font-size:28rpx">{{vipData.gmtCreated}}到期</view>
+          <view wx:else style="margin-top:30rpx;color:#ffffff;font-size:28rpx"><span wx:if="{{vipData.cycleTerm!='0'}}">{{vipData.limitTime}}到期</span><span wx:else>永久有效</span></view>
         </view>
     </view>
     <view class="info flex-center-Y" wx:else>

@@ -38,7 +38,7 @@
                         <text style="font-size:24rpx;color:#eab234">{{vipData.memberGrade==1000 ? '' : vipData.gradeName}}</text>
                     </view>
                     <view wx:if="{{vipData.memberGrade==1000}}" style="margin-top:10rpx;color:rgba(45, 135, 156, 1);font-size:24rpx">开通会员,享更多权益~</view>
-                    <view wx:else style="margin-top:10rpx;color:rgba(45, 135, 156, 1);font-size:24rpx">{{vipData.gmtCreated}}到期</view>
+                    <view wx:else style="margin-top:10rpx;color:rgba(45, 135, 156, 1);font-size:24rpx"><span wx:if="{{vipData.cycleTerm!='0'}}">{{vipData.limitTime}}到期</span><span wx:else>永久有效</span></view>
                 </view>
         </view>
         <button class="couponBtn" wx:if="{{hasUserInfo==false}}" bindtap="getUserProfile" style="font-size:28rpx;margin:0">去登录</button>
@@ -49,9 +49,12 @@
     </view>
     <view class="flex-center-Y" style="padding-top:30rpx;background-color: rgba(249, 249, 249, 1);">
         <view class="goods">
+            <view class="tab-h">
+                <view wx:for="{{tabList}}" wx:for-item='list' wx:key="index" class="tab-item {{activeTab==index?'active':''}}" data-current="{{index}}" bindtap="swichNav">{{list.typeName}}</view>
+            </view>
             <view class="searchBox">
                 <view class="search-l">
-                    <input placeholder="搜索歌曲名称" class="search-int" value="{{inputValue}}" bindinput="getInput"></input>
+                    <input placeholder="{{activeTab=='0'?'搜索歌曲名称':(activeTab=='1'?'搜索商品名称':'搜索教学视频')}}" class="search-int" value="{{inputValue}}" bindinput="getInput"></input>
                     <image class="search-img1" src="../../images/homeIndex/search.png"></image>
                     <view class="search-img2" catchtap="clear">
                         <image style="position:absolute;top:0" wx:if="{{inputValue}}" src="../../images/homeIndex/clear.png"></image>
@@ -67,7 +70,7 @@
                     </van-dropdown-menu>
                 </view>
             </view>
-            <scroll-view scroll-y="true" class="container" style="width:calc(100vw - 60rpx);height: calc(100vh - 760rpx);overflow: scroll;" bindscrolltolower="bindscrolltolower">
+            <scroll-view scroll-y="true" class="container" style="width:calc(100vw - 60rpx);height: calc(100vh - 860rpx);overflow: scroll;" bindscrolltolower="bindscrolltolower">
                 <view wx:for="{{goodsList}}" wx:key="index" class="article content">
                     <button class="mask" wx:if="{{hasUserInfo==false}}" bindtap="getUserProfile"></button>
                     <view class="bottom flex-center-Y" bindtap="toDetail" data-skucode="{{item.skuCode}}">

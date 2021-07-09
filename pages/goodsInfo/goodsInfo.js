@@ -49,7 +49,7 @@ Page({
       //运行一次
       innerAudioContext.play();
       innerAudioContext.pause();
-      innerAudioContext.onCanplay(() => {
+      innerAudioContext.onCanplay(() => {//监听音频进入可以播放状态的事件
         //初始化duration
         innerAudioContext.duration
         setTimeout(function () {
@@ -431,12 +431,20 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    // app.watchIsHide(this.watchBack)
     this.setData({
       skuCode:options.skuCode,
       isShare:options.isShare
     })
   },
-
+  // watchBack: function(value){
+  //   if(value){
+  //     console.log(6666)
+  //     wx.redirectTo({
+  //       url: '../goodsInfo/goodsInfo?skuCode=' + this.data.skuCode
+  //     })
+  //   }
+  // },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -451,6 +459,10 @@ Page({
     if(app.globalData.userInfo && app.globalData.token){//如果已经授权并登陆
       this.setData({hasUserInfo:true})
     }
+    //将数据重置
+    this.setData({ audioSeek: 0, audioTime: 0, audioDuration: innerAudioContext.duration, isPlayAudio: false, showTime1: `00:00` });
+    //清除计步器
+    clearInterval(this.data.durationIntval);
     this.getData()
     this.Initialization();
     this.loadaudio();
@@ -461,7 +473,6 @@ Page({
    */
   onHide: function () {
   },
-
   /**
    * 生命周期函数--监听页面卸载
    */

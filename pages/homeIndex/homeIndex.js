@@ -30,12 +30,18 @@ Page({
             // { text: '分类1', value: 1 },
             // { text: '分类2', value: 2 },
           ],
+          tabList: [
+            { typeName: '歌曲', id: 0 },
+            { typeName: '商城', id: 1 },
+            { typeName: '教学视频', id: 2 }
+          ],
           option2: [
             { text: '全部歌曲', value: '' },
             { text: '普通歌曲', value: 'Y' },
             { text: '精品歌曲', value: 'N' }
           ],
           typeId: '',
+          activeTab:0,
           value2: '',
           inputValue:"",
           vipData:""
@@ -145,6 +151,14 @@ Page({
         this.data.params.pageNum += 1
         this.setData({ params: this.data.params })
         this.getList()
+    },
+    swichNav: function(e) {
+        var that = this
+        var index = e.currentTarget.dataset.current
+        that.data.activeTab = that.data.tabList[index].id
+        that.setData({
+            activeTab: that.data.activeTab
+        })
     },
     // 首页商品-------------------------------
     /**

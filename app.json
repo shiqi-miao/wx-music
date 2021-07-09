@@ -50,7 +50,11 @@
     "live-player-plugin": {
       "version": "1.3.0",
       "provider": "wx2b03c6e691cd7370"
-  }
+    },
+    "mini-shop-plugin": {
+      "version": "latest",
+      "provider": "wx34345ae5855f892d"
+    }
   },
   "useExtendedLib": {
     "weui": true

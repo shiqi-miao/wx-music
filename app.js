@@ -1,11 +1,15 @@
 //app.js
 import locales from "./utils/locales";
+//标准交易组件
+const miniShopPlugin = requirePlugin('mini-shop-plugin');
 //语言
 wx.langFlag = "en";
 wx.lang = locales.cn;
-
 App({
   onLaunch: function () {
+    //标准交易组件
+    miniShopPlugin.initApp(this, wx);
+    miniShopPlugin.initHomePath('/pages/homeIndex/homeIndex');
     //语言
     wx.getSystemInfo({
         success: function(res) {
@@ -81,7 +85,27 @@ App({
       that.globalData.checkOutId=true
     }
   },
+  // onHide: function (){
+  //   wx.onAppHide(()=>{
+  //     console.log(33333333366666)
+  //     this.globalData.isHide=true
+  //   })
+  // },
+  // watchIsHide: function(method){//监听小程序被隐藏
+  //   var obj = this.globalData;
+  //   Object.defineProperty(obj, 'isHide', {
+  //     configurable: true,
+  //     enumerable: true,
+  //     set: function (value) {
+  //       method(value);
+  //     },
+  //     get: function(){
+  //       return this.isHide
+  //     }
+  //   })
+  // },
   globalData: {
+    // isHide:false,//小程序是否被隐藏
     cartCount:0,
     qrCodeInfo:"",//扫一扫url后所带的参数,用来获得扫到商品的具体信息
     skuCodeBox:"",//扫一扫url后所带的参数,用来获得盲盒背后的具体信息
