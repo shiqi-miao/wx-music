@@ -374,6 +374,7 @@ Page({
     })
     api.http('/flute/api/skuBuy', 
         {
+          orderType:"MUSIC",
           token: app.globalData.token,
           totalFee: that.data.infoData.salePrice,
           skuCode:that.data.infoData.skuCode,
@@ -402,7 +403,7 @@ Page({
       package: data.package,
       signType: 'MD5',
       paySign: data.sign,
-      success(res) {//支付成功跳转我的订单页面
+      success(res) {
         wx.showToast({
           title: "支付成功!", duration: 1000,
           success: res => {

@@ -32,8 +32,8 @@ Page({
           ],
           tabList: [
             { typeName: '歌曲', id: 0 },
-            { typeName: '商城', id: 1 },
-            { typeName: '教学视频', id: 2 }
+            // { typeName: '商城', id: 1 },
+            { typeName: '教学视频', id: 1 }
           ],
           option2: [
             { text: '全部歌曲', value: '' },
@@ -41,7 +41,7 @@ Page({
             { text: '精品歌曲', value: 'N' }
           ],
           typeId: '',
-          activeTab:0,
+          activeTab:'0',
           value2: '',
           inputValue:"",
           vipData:""
@@ -54,49 +54,95 @@ Page({
     
     getType(){
         var that = this
-        api.http('/flute/api/musicScoreType', 
-            {},
-            'post', 
-            true).then(res => {
-            if (res.result == 0) {
-                res.data.list.forEach(item=>{
-                    item.text=item.type_name
-                    item.value=item.id
-                })
-                res.data.list.unshift({text:"全部分类",value:""})
-                that.setData({
-                    typeList:res.data.list,
-                    typeId:res.data.list[0].value
-                })
-                }
-        })
+        if(that.data.activeTab=='0'){
+            api.http('/flute/api/musicScoreType', 
+                {},
+                'post', 
+                true).then(res => {
+                if (res.result == 0) {
+                    res.data.list.forEach(item=>{
+                        item.text=item.type_name
+                        item.value=item.id
+                    })
+                    res.data.list.unshift({text:"全部分类",value:""})
+                    that.setData({
+                        typeList:res.data.list,
+                        typeId:res.data.list[0].value
+                    })
+                    }
+            })
+        }else{
+            api.http('/flute/api/videoScoreType', 
+                {},
+                'post', 
+                true).then(res => {
+                if (res.result == 0) {
+                    res.data.list.forEach(item=>{
+                        item.text=item.type_name
+                        item.value=item.id
+                    })
+                    res.data.list.unshift({text:"全部分类",value:""})
+                    that.setData({
+                        typeList:res.data.list,
+                        typeId:res.data.list[0].value
+                    })
+                    }
+            })
+        }
     },
     getList(){
         var that = this
-        api.http('/flute/api/musicScore', 
-            {
-                pageNum:that.data.params.pageNum,
-                pageRow:that.data.params.pageRow,
-                typeId:that.data.typeId,
-                isFree:that.data.value2,
-                skuName:that.data.inputValue
-            },
-        'post', 
-        true).then(res => {
-        if (res.result == 0) {
-            that.data.goodsList=that.data.goodsList.concat(res.data.list)
-            that.data.totalCount=res.data.count
-            that.data.totalPage=Math.ceil(res.data.count / that.data.params.pageRow)
-            that.data.goodsList.forEach(item=>{
-                item.gmtCreated=item.gmtCreated.split(' ')[0]
+        if(that.data.activeTab=='0'){
+            api.http('/flute/api/musicScore', 
+                {
+                    pageNum:that.data.params.pageNum,
+                    pageRow:that.data.params.pageRow,
+                    typeId:that.data.typeId,
+                    isFree:that.data.value2,
+                    skuName:that.data.inputValue
+                },
+            'post', 
+            true).then(res => {
+            if (res.result == 0) {
+                that.data.goodsList=that.data.goodsList.concat(res.data.list)
+                that.data.totalCount=res.data.count
+                that.data.totalPage=Math.ceil(res.data.count / that.data.params.pageRow)
+                that.data.goodsList.forEach(item=>{
+                    item.gmtCreated=item.gmtCreated.split(' ')[0]
+                })
+                that.setData({
+                    goodsList:that.data.goodsList,
+                    totalCount:that.data.totalCount,
+                    totalPage:that.data.totalPage
+                })
+            }
             })
-            that.setData({
-                goodsList:that.data.goodsList,
-                totalCount:that.data.totalCount,
-                totalPage:that.data.totalPage
+        }else{
+            api.http('/flute/api/videoScore', 
+                {
+                    pageNum:that.data.params.pageNum,
+                    pageRow:that.data.params.pageRow,
+                    typeId:that.data.typeId,
+                    isFree:that.data.value2,
+                    skuName:that.data.inputValue
+                },
+            'post', 
+            true).then(res => {
+            if (res.result == 0) {
+                that.data.goodsList=that.data.goodsList.concat(res.data.list)
+                that.data.totalCount=res.data.count
+                that.data.totalPage=Math.ceil(res.data.count / that.data.params.pageRow)
+                that.data.goodsList.forEach(item=>{
+                    item.gmtCreated=item.gmtCreated.split(' ')[0]
+                })
+                that.setData({
+                    goodsList:that.data.goodsList,
+                    totalCount:that.data.totalCount,
+                    totalPage:that.data.totalPage
+                })
+            }
             })
         }
-        })
     },
     toOrder(){
         wx.navigateTo({
@@ -104,9 +150,15 @@ Page({
         })
     },
     toDetail(e) {
-        wx.navigateTo({
-            url: '../goodsInfo/goodsInfo?skuCode=' + e.currentTarget.dataset.skucode,
-        })
+        if(this.data.activeTab=='0'){
+            wx.navigateTo({
+                url: '../goodsInfo/goodsInfo?skuCode=' + e.currentTarget.dataset.skucode,
+            })
+        }else if(this.data.activeTab=='1'){
+            wx.navigateTo({
+                url: '../vidioInfo/vidioInfo?skuCode=' + e.currentTarget.dataset.skucode,
+            })
+        }
     },
     reflashData() {
         this.setData({
@@ -156,9 +208,17 @@ Page({
         var that = this
         var index = e.currentTarget.dataset.current
         that.data.activeTab = that.data.tabList[index].id
+        that.data.typeId=""
+        that.data.value2=""
+        that.data.inputValue=""
         that.setData({
-            activeTab: that.data.activeTab
+            activeTab: that.data.activeTab,
+            typeId: that.data.typeId,
+            value2: that.data.value2,
+            inputValue: that.data.inputValue
         })
+        that.getType()
+        that.getSearch()
     },
     // 首页商品-------------------------------
     /**

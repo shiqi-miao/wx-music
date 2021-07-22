@@ -1,0 +1,14 @@
+<!--pages/vidioInfo/vidioInfo.wxml-->
+<view class="content">
+    <van-popup show="{{ showPopup }}" bind:close="onClose" round>
+      <view class="buyBox">
+        <view class="title">您没有查看该视频的权限</view>
+        <view class="bottom flex-center-Y">
+          <view class="left" bindtap="buyOne">单曲购买(￥{{infoData.salePrice}})</view>
+          <view class="right" bindtap="buyVip">成为会员</view>
+        </view>
+      </view>
+    </van-popup>
+</view>
+<view class="blank"></view>
+<login-model showModal="{{showModal}}" bindcloseModel="closeLoginModel" bindreflashData="reflashData"></login-model>

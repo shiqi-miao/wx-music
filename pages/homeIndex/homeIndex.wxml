@@ -54,7 +54,7 @@
             </view>
             <view class="searchBox">
                 <view class="search-l">
-                    <input placeholder="{{activeTab=='0'?'搜索歌曲名称':(activeTab=='1'?'搜索商品名称':'搜索教学视频')}}" class="search-int" value="{{inputValue}}" bindinput="getInput"></input>
+                    <input placeholder="{{activeTab=='0'?'搜索歌曲名称':(activeTab=='1'?'搜索教学视频':'搜索商品名称')}}" class="search-int" value="{{inputValue}}" bindinput="getInput"></input>
                     <image class="search-img1" src="../../images/homeIndex/search.png"></image>
                     <view class="search-img2" catchtap="clear">
                         <image style="position:absolute;top:0" wx:if="{{inputValue}}" src="../../images/homeIndex/clear.png"></image>
