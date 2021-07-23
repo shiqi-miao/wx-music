@@ -62,7 +62,7 @@
       <view>
         <view class="line flex-center-Y justify-between">
           <view class="flex-center-S">
-            <image src="{{item.orderType=='单曲购买' ? '../../images/my/music.png' : '../../images/my/vip.png'}}"></image>
+            <image src="{{item.orderType=='单曲购买' ? '../../images/my/music.png' : (item.orderType=='教学视频购买' ? '../../images/my/video.png' :'../../images/my/vip.png')}}"></image>
             <view>
               <view class="name limit-ellipsis">{{item.skuName || item.nameDesc}}</view>
               <view class="name name1 limit-ellipsis">{{item.orderType}}</view>
@@ -94,7 +94,7 @@
       <view>
         <view class="line flex-center-Y justify-between">
           <view class="flex-center-S">
-            <image src="{{item.orderType=='单曲购买' ? '../../images/my/music.png' : '../../images/my/vip.png'}}"></image>
+            <image src="{{item.orderType=='单曲购买' ? '../../images/my/music.png' : (item.orderType=='教学视频购买' ? '../../images/my/video.png' :'../../images/my/vip.png')}}"></image>
             <view>
               <view class="name limit-ellipsis">{{item.skuName || item.nameDesc}}</view>
               <view class="name name1 limit-ellipsis">{{item.orderType}}</view>
@@ -127,7 +127,7 @@
       <view>
         <view class="line flex-center-Y justify-between">
           <view class="flex-center-S">
-            <image src="{{item.orderType=='单曲购买' ? '../../images/my/music.png' : '../../images/my/vip.png'}}"></image>
+            <image src="{{item.orderType=='单曲购买' ? '../../images/my/music.png' : (item.orderType=='教学视频购买' ? '../../images/my/video.png' :'../../images/my/vip.png')}}"></image>
             <view>
               <view class="name limit-ellipsis">{{item.skuName || item.nameDesc}}</view>
               <view class="name name1 limit-ellipsis">{{item.orderType}}</view>
