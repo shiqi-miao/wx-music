@@ -291,12 +291,18 @@ swiper,
     margin-top: 30rpx;
     line-height: 1;
 }
+.article .bottom .detail .price {
+    font-size: 40rpx;
+    font-weight: bold;
+    color: rgba(45, 135, 156, 1);
+}
+
 .article .bottom .detail .sale {
     text-decoration: line-through;
     font-size: 24rpx;
     font-weight: 400;
     color: #999999;
-    margin-left: 10rpx;
+    margin-top: 20rpx;
 }
 
 .article .bottom .cart {

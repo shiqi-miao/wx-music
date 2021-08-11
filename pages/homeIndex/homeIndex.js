@@ -32,8 +32,8 @@ Page({
           ],
           tabList: [
             { typeName: '歌曲', id: 0 },
-            // { typeName: '商城', id: 1 },
-            { typeName: '教学视频', id: 1 }
+            { typeName: '教学视频', id: 1 },
+            { typeName: '商城', id: 2 }
           ],
           option2: [
             { text: '全部歌曲', value: '' },
@@ -117,7 +117,7 @@ Page({
                 })
             }
             })
-        }else{
+        }else if(that.data.activeTab=='1'){
             api.http('/flute/api/videoScore', 
                 {
                     pageNum:that.data.params.pageNum,
@@ -142,6 +142,26 @@ Page({
                 })
             }
             })
+        }else{
+            api.http('/flute/api/shop', 
+                {
+                    page:that.data.params.pageNum,
+                    pageSize:that.data.params.pageRow,
+                    // typeId:that.data.typeId,
+                    // isFree:that.data.value2,
+                    skuName:that.data.inputValue
+                },
+            'post', 
+            true).then(res => {
+            if (res.result == 0) {
+                that.data.goodsList=that.data.goodsList.concat(res.data.spus)
+                that.data.totalPage=res.data.total_num
+                that.setData({
+                    goodsList:that.data.goodsList,
+                    totalPage:that.data.totalPage
+                })
+            }
+            })
         }
     },
     toOrder(){
@@ -157,6 +177,10 @@ Page({
         }else if(this.data.activeTab=='1'){
             wx.navigateTo({
                 url: '../vidioInfo/vidioInfo?skuCode=' + e.currentTarget.dataset.skucode,
+            })
+        }else if(this.data.activeTab=='2'){
+            wx.navigateTo({
+                url: e.currentTarget.dataset.path,
             })
         }
     },
@@ -207,18 +231,24 @@ Page({
     swichNav: function(e) {
         var that = this
         var index = e.currentTarget.dataset.current
-        that.data.activeTab = that.data.tabList[index].id
-        that.data.typeId=""
-        that.data.value2=""
-        that.data.inputValue=""
-        that.setData({
-            activeTab: that.data.activeTab,
-            typeId: that.data.typeId,
-            value2: that.data.value2,
-            inputValue: that.data.inputValue
-        })
-        that.getType()
-        that.getSearch()
+        if(that.data.tabList[index].id!='2'){
+            that.data.activeTab = that.data.tabList[index].id
+            that.data.typeId=""
+            that.data.value2=""
+            that.data.inputValue=""
+            that.setData({
+                activeTab: that.data.activeTab,
+                typeId: that.data.typeId,
+                value2: that.data.value2,
+                inputValue: that.data.inputValue
+            })
+            that.getType()
+            that.getSearch()
+        }else{//商城
+            wx.navigateTo({
+              url: '../shop/shop',
+            })
+        }
     },
     // 首页商品-------------------------------
     /**
