@@ -169,6 +169,11 @@ Page({
           url: '../myOrder/myOrder',
         })
     },
+    toShopOrder(){
+        wx.navigateTo({
+          url: 'plugin-private://wx34345ae5855f892d/pages/orderList/orderList',
+        })
+    },
     toDetail(e) {
         if(this.data.activeTab=='0'){
             wx.navigateTo({

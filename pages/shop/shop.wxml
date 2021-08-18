@@ -1,22 +1,22 @@
 <!--pages/shop/shop.wxml-->
 <view class="page">
-    <view class="functionBox">
+    <!-- <view class="functionBox">
         <button wx:if="{{hasUserInfo==false}}" bindtap="getUserProfile" class="order" style="line-height:0">
             <image src="../../images/tab/order_shop.png"></image>
         </button>
         <view wx:else bindtap="getUserProfile" class="order" bindtap="toOrder">
             <image src="../../images/tab/order_shop.png"></image>
         </view>
-        <!-- <button wx:if="{{hasUserInfo==false}}" bindtap="getUserProfile" class="order" style="line-height:0">
+        <button wx:if="{{hasUserInfo==false}}" bindtap="getUserProfile" class="order" style="line-height:0">
             <image src="../../images/tab/car.png"></image>
         </button>
         <view wx:else bindtap="getUserProfile" class="order" bindtap="toCar">
             <image src="../../images/tab/car.png"></image>
-        </view> -->
+        </view>
         <button open-type="contact" class="order" style="line-height:0">
             <image src="../../images/tab/kf_shop.png"></image>
         </button>
-    </view>
+    </view> -->
     <view class="flex-center-Y" style="padding-top:20rpx;background-color: rgba(249, 249, 249, 1);">
         <view class="goods">
             <!-- <view class="searchBox">
@@ -30,7 +30,7 @@
             </view> -->
             <!-- <view class="tabs">
                 <view class="left">
-                    <van-dropdown-menu active-color="#2d879c" class="{{typeId && value2?'all':(typeId && !value2?'one':(!typeId && value2?'two':''))}}">
+                    <van-dropdown-menu active-color="#ff6146" class="{{typeId && value2?'all':(typeId && !value2?'one':(!typeId && value2?'two':''))}}">
                         <van-dropdown-item value="{{ typeId }}" options="{{ typeList }}" bindchange="getTypeId"/>
                         <van-dropdown-item wx:if="{{activeTab!='2'}}" value="{{ value2 }}" options="{{ option2 }}"  bindchange="getFeeType"/>
                     </van-dropdown-menu>
@@ -46,7 +46,7 @@
                             <view class="title">{{item.title}}</view>
                             <view class="detail flex-center-Y justify-between"><view class="limit-ellipsis" style="width:350rpx">{{item.sub_title}}</view></view>
                         </view>
-                        <view class="detail" style="position:absolute;right:50rpx;top:50%;transform:translateY(-50%);text-align:right;margin-right:0;margin-top:0">￥
+                        <view class="detail" style="position:absolute;right:20rpx;top:50%;transform:translateY(-50%);text-align:right;margin-right:0;margin-top:0">￥
                             <text class="price">{{item.min_price/100}}</text>
                             <!-- <view class="sale">50.00</view> -->
                         </view>

@@ -3,7 +3,7 @@ page{background: #ffffff;}
 .container{margin-top: 110rpx;padding-bottom:200rpx;}
 .tab{padding-top:30rpx;width:100%;height:104rpx;position:fixed;top:0;left:0;display: flex;align-items: flex-end;color: rgba(153, 153, 153, 1);font-size: 28rpx;background: #fff;z-index: 20;}
 .tab .active{color: rgba(51, 51, 51, 1);font-weight: bold;font-size: 28rpx;position: relative;}
-.tab .active:after{content: "";display: block;height: 8rpx;width: 40rpx;border-radius:4rpx;background: #2D879C;position: absolute; left: 50%;transform: translateX(-50%);bottom: -30rpx}
+.tab .active:after{content: "";display: block;height: 8rpx;width: 40rpx;border-radius:4rpx;background: #ff6146;position: absolute; left: 50%;transform: translateX(-50%);bottom: -30rpx}
 .box{background: #fff;margin-bottom: 30rpx;border-radius: 20rpx;padding:30rpx;position: relative;}
 .box .payTime{position: absolute;top: 88rpx;right: 30rpx;color: #CA3434;font-size: 24rpx;}
 .box .top{color: #999999;font-size: 28rpx;margin-bottom: 48rpx;}
@@ -13,7 +13,7 @@ page{background: #ffffff;}
 .box .line image{width:120rpx;height: 120rpx;margin-right: 20rpx;border-radius: 12rpx;}
 .box .line .name,.box .line .name1{width:400rpx;margin-bottom: 30rpx;font-size: 28rpx;color: #333;}
 .box .line .name1{font-size: 24rpx;color: #999999;}
-.box .line .price{font-size: 28rpx;color: #2D879C;font-weight: bold;}
+.box .line .price{font-size: 28rpx;color: #ff6146;font-weight: bold;}
 .box .line .price .num{color: #999;text-align: right;font-weight: 400;}
 .line .left{width: 500rpx;}
 .line .left .goodsImg{width: 120rpx;height: 120rpx;border-radius: 24rpx;margin-right: 20rpx;}
@@ -21,7 +21,7 @@ page{background: #ffffff;}
 .box .center .label{margin-left: 120rpx;}
 .box .bottom{font-size: 28rpx;color: #333;margin-top: 20rpx;}
 .box .bottom .btn,.box .bottom .btn1,.box .bottom .btn2{width:100rpx;height: 48rpx;line-height: 48rpx;font-size: 24rpx;border-radius: 8rpx;color: #999;text-align: center;}
-.box .bottom .btn1{border:2rpx solid #2D879C;color: #2D879C;background: #fff;border-radius: 24rpx;}
+.box .bottom .btn1{border:2rpx solid #ff6146;color: #ff6146;background: #fff;border-radius: 24rpx;}
 .box .bottom .btn2{border:0;color: #999999;background: #fff;}
 .bold{font-weight: bold;}
 .payBtn{width:120rpx;height: 48rpx;line-height: 48rpx;font-size: 24rpx;border-radius: 8rpx;color: #ffffff;text-align: center;background: #795548;}

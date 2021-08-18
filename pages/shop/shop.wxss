@@ -53,7 +53,7 @@ button {
 .adv {
   padding: 14rpx 30rpx;
   background: #00000080;
-  color: #2D879C;
+  color: #ff6146;
   font-size: 24rpx;
   line-height: 24rpx;
   border-radius: 26rpx!important;
@@ -124,7 +124,7 @@ button {
   width: 180rpx;
   height: 72rpx;
   line-height: 72rpx;
-  background-color: rgba(45, 135, 156, 1);
+  background-color: #ff6146;
   border-radius: 36rpx;
   font-size: 28rpx;
   color: #ffffff;
@@ -294,7 +294,7 @@ swiper,
 .article .bottom .detail .price {
   font-size: 40rpx;
   font-weight: bold;
-  color: #ff5722;
+  color: #ff6146;
 }
 
 .article .bottom .detail .sale {
@@ -446,7 +446,7 @@ swiper,
   height: 8rpx;
   border-radius: 4rpx;
   width: 40rpx;
-  background: rgba(45, 135, 156, 1);
+  background: #ff6146;
   position: absolute;
   bottom: 6rpx;
   left: 50%;
@@ -518,15 +518,15 @@ swiper,
 }
 
 .goods van-dropdown-menu.one .van-dropdown-menu>.van-dropdown-menu__item:nth-child(1)>.van-dropdown-menu__title{
-  color: rgba(45, 135, 156, 1);
+  color: #ff6146;
 }
 
 .goods van-dropdown-menu.two .van-dropdown-menu>.van-dropdown-menu__item:nth-child(2)>.van-dropdown-menu__title{
-  color: rgba(45, 135, 156, 1);
+  color: #ff6146;
 }
 
 .goods van-dropdown-menu.all .van-dropdown-menu .van-dropdown-menu__title{
-  color: rgba(45, 135, 156, 1);
+  color: #ff6146;
 }
 
 .goods .img {

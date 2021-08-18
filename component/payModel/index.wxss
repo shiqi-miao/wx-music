@@ -4,7 +4,7 @@
     margin-top: 100rpx;
     color: #22cc22;
 }
-.btn{position: absolute;bottom:60rpx;right:60rpx;width: 200rpx;height: 80rpx;background: #2D879C;color:#2D879C;font-size: 24rpx;line-height: 80rpx;border-radius: 54rpx;text-align: center;}
+.btn{position: absolute;bottom:60rpx;right:60rpx;width: 200rpx;height: 80rpx;background: #ff6146;color:#ff6146;font-size: 24rpx;line-height: 80rpx;border-radius: 54rpx;text-align: center;}
 .btn1{position: absolute;bottom:60rpx;left:60rpx;width: 200rpx;height: 80rpx;background: rgba(216, 216, 216, 1);color: #fff;font-size: 24rpx;line-height: 80rpx;border-radius: 54rpx;text-align: center;}
 .modal-mask {
     width: 100%;

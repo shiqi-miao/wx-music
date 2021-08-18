@@ -49,7 +49,7 @@
       <!-- 播放中-->
     </view>
     <view class='audio_pro'>
-      <slider class="drag" step="10" value="{{audioTime}}" bindchange="sliderChange" backgroundColor="#efefef" activeColor="#90BED5" />
+      <slider class="drag" step="10" value="{{audioTime}}" bindchange="sliderChange" backgroundColor="#efefef" activeColor="#ff6146" />
     </view>
     <text class='audio_text'>{{showTime1}}/{{showTime2}}</text>
   </view>

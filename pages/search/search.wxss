@@ -64,7 +64,7 @@
 .hot-model{
   width: 12rpx;
   height: 45rpx;
-  background: #2D879C;
+  background: #ff6146;
   margin-right:30rpx
 }
 .hot-content{

@@ -222,7 +222,7 @@ Page({
     wx.showModal({
       title: '保存图片',
       confirmText: '保存',
-      confirmColor: '#2D879C',
+      confirmColor: '#ff6146',
       success: function (res) {
         if (res.confirm) {
           let url = e.currentTarget.dataset.url;
